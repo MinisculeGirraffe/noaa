@@ -1,8 +1,11 @@
+use std::str::FromStr;
+
 use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::model::RecordValue;
 use crate::util::get_parts;
 use phf::phf_map;
 use serde::{Deserialize, Deserializer, Serialize};
+use serde_with::DeserializeFromStr;
 
 pub static SOURCE_ELEMENTS: phf::Map<&'static str, &'static str> = phf_map! {
     "AU" => "sourced from automated ASOS/AWOS sensors",
@@ -234,7 +237,7 @@ pub static MANUAL_ATMOSPHERIC_CONDITION_CODES: phf::Map<&'static str, &'static s
     "8" => "Shower(s)",
     "9" => "Thunderstorm(s) with or without precipitation",
 };
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 // AT1 – AT8
 pub struct ATX {
     source_element: CodeRecord,
@@ -242,12 +245,12 @@ pub struct ATX {
     weather_type_abbreviation: CodeRecord,
     quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for ATX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for ATX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = get_parts(s);
+
         Ok(ATX {
             source_element: CodeRecord::new(&parts[0], &SOURCE_ELEMENTS),
             weather_type: CodeRecord::new(&parts[1], &WEATHER_TYPES),
@@ -257,7 +260,7 @@ impl<'de> Deserialize<'de> for ATX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 //AU1 - AU9
 pub struct AUX {
     intensity_code: CodeRecord,
@@ -269,12 +272,11 @@ pub struct AUX {
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AUX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AUX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = get_parts(s);
 
         Ok(AUX {
             intensity_code: CodeRecord::new(&parts[0], &INTENSITY_PROXIMITY_CODES),
@@ -288,19 +290,17 @@ impl<'de> Deserialize<'de> for AUX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 // AW1 - AW4
 pub struct AWX {
     atmospheric_condition_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AWX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AWX {
+    type Err = &'static str;
 
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = get_parts(s);
         Ok(AWX {
             atmospheric_condition_code: CodeRecord::new(
                 &parts[0],
@@ -309,21 +309,21 @@ impl<'de> Deserialize<'de> for AWX {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 // AX1 - AX6
 pub struct AXX {
     atmospheric_condition_code: CodeRecord,
     atmospheric_condition_quality_code: CodeRecord,
-    period_quantity: RecordValue<i8>,
+    period_quantity: Option<RecordValue<i8>>,
     period_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AXX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AXX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = get_parts(s);
+
         Ok(AXX {
             atmospheric_condition_code: CodeRecord::new(&parts[0], &ATMOSPHERIC_CONDITION_CODES),
             atmospheric_condition_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -332,21 +332,20 @@ impl<'de> Deserialize<'de> for AXX {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 //AY1 - AY2
 pub struct AYX {
     manual_atmospheric_condition_code: CodeRecord,
     manual_atmospheric_condition_quality_code: CodeRecord,
-    period_quantity: RecordValue<i8>,
+    period_quantity: Option<RecordValue<i8>>,
     period_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AYX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AYX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = get_parts(s);
 
         Ok(AYX {
             manual_atmospheric_condition_code: CodeRecord::new(
@@ -361,28 +360,31 @@ impl<'de> Deserialize<'de> for AYX {
 }
 
 //AZ1 - AZ2 todo
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AZX {
     automated_atmospheric_condition_code: CodeRecord,
     automated_atmospheric_condition_quality_code: CodeRecord,
-    period_quantity: RecordValue<i8>,
+    period_quantity: Option<RecordValue<i8>>,
     period_quality_code: CodeRecord,
 }
 
+impl FromStr for AZX {
+    type Err = &'static str;
 
-impl<'de> Deserialize<'de> for AZX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    { 
-        let parts = get_parts(d, 0)?;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = get_parts(s);
+
         Ok(AZX {
             automated_atmospheric_condition_code: CodeRecord::new(
                 &parts[0],
                 &AUTOMATED_ATMOSPHERIC_CONDITION_CODES,
             ),
-            automated_atmospheric_condition_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
+            automated_atmospheric_condition_quality_code: CodeRecord::new(
+                &parts[1],
+                &QUALITY_CODES,
+            ),
             period_quantity: RecordValue::new(&parts[2], "hours", 1),
             period_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
         })
-    }}
+    }
+}

@@ -1,8 +1,11 @@
+use std::str::FromStr;
+
 use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::model::RecordValue;
 use crate::util::get_parts;
 use phf::phf_map;
 use serde::{Deserialize, Deserializer, Serialize};
+use serde_with::DeserializeFromStr;
 
 pub static COVERAGE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
  "00" => "None, SKC or CLR",
@@ -310,23 +313,22 @@ pub static MOD_GLOBAL_HORIZONTAL_SOURCE_FLAGS: phf::Map<&'static str, &'static s
     "99" => "Missing data",
 };
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 //GA1-6
 pub struct GAX {
     coverage_code: CodeRecord,
     coverage_quality_code: CodeRecord,
-    base_height: RecordValue<i32>,
+    base_height: Option<RecordValue<i32>>,
     base_height_quality_code: CodeRecord,
     cloud_type_code: CodeRecord,
     cloud_type_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GAX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GAX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GAX {
             coverage_code: CodeRecord::new(&parts[0], &COVERAGE_CODES),
             coverage_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -338,23 +340,22 @@ impl<'de> Deserialize<'de> for GAX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 //GD1-6
 pub struct GDX {
     coverage_code: CodeRecord,
     coverage_code_2: CodeRecord,
     coverage_quality_code: CodeRecord,
-    height_dimension: RecordValue<i32>,
+    height_dimension: Option<RecordValue<i32>>,
     height_dimension_quality_code: CodeRecord,
     characteristic_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GDX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GDX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GDX {
             coverage_code: CodeRecord::new(&parts[0], &COVERAGE_CODES),
             coverage_code_2: CodeRecord::new(&parts[1], &COVERAGE_CODES),
@@ -365,19 +366,18 @@ impl<'de> Deserialize<'de> for GDX {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GE1 {
     connective_cloud_code: CodeRecord,
     vertical_datum_code: CodeRecord,
-    base_height_ur: RecordValue<i32>,
-    base_height_lr: RecordValue<i32>,
+    base_height_ur: Option<RecordValue<i32>>,
+    base_height_lr: Option<RecordValue<i32>>,
 }
-impl<'de> Deserialize<'de> for GE1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GE1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GE1 {
             connective_cloud_code: CodeRecord::new(&parts[0], &CLOUD_ATTRIBURE_CODES),
             vertical_datum_code: CodeRecord::new(&parts[1], &VERTICAL_DATUM_ATTRIBUTE_CODES),
@@ -386,7 +386,7 @@ impl<'de> Deserialize<'de> for GE1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GF1 {
     total_coverage_code: CodeRecord,
     total_opaque_coverage_code: CodeRecord,
@@ -395,19 +395,18 @@ pub struct GF1 {
     low_total_coverage_quality_code: CodeRecord,
     low_cloud_genus_code: CodeRecord,
     low_cloud_genus_quality_code: CodeRecord,
-    low_cloud_base_height: RecordValue<i32>,
+    low_cloud_base_height: Option<RecordValue<i32>>,
     low_cloud_base_height_quality_code: CodeRecord,
     mid_cloud_genus_code: CodeRecord,
     mid_cloud_genus_quality_code: CodeRecord,
     high_cloud_genus_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GF1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GF1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GF1 {
             total_coverage_code: CodeRecord::new(&parts[0], &COVERAGE_CODES),
             total_opaque_coverage_code: CodeRecord::new(&parts[1], &COVERAGE_CODES),
@@ -424,24 +423,23 @@ impl<'de> Deserialize<'de> for GF1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 //GG1-6
 pub struct GGX {
     coverage_code: CodeRecord,
     coverage_quality_code: CodeRecord,
-    top_height: RecordValue<i32>,
+    top_height: Option<RecordValue<i32>>,
     top_height_quality_code: CodeRecord,
     type_code: CodeRecord,
     type_quality_code: CodeRecord,
     top_code: CodeRecord,
     top_quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for GGX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GGX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GGX {
             coverage_code: CodeRecord::new(&parts[0], &COVERAGE_CODES),
             coverage_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -455,27 +453,26 @@ impl<'de> Deserialize<'de> for GGX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GH1 {
-    avg_solar_radiation: RecordValue<i32>,
+    avg_solar_radiation: Option<RecordValue<i32>>,
     avg_solar_radiation_quality_code: CodeRecord,
     avg_solar_radiation_quality_flag: CodeRecord,
-    min_solar_radiation: RecordValue<i32>,
+    min_solar_radiation: Option<RecordValue<i32>>,
     min_solar_radiation_quality_code: CodeRecord,
     min_solar_radiation_quality_flag: CodeRecord,
-    max_solar_radiation: RecordValue<i32>,
+    max_solar_radiation: Option<RecordValue<i32>>,
     max_solar_radiation_quality_code: CodeRecord,
     max_solar_radiation_quality_flag: CodeRecord,
-    std_solar_radiation: RecordValue<i32>,
+    std_solar_radiation: Option<RecordValue<i32>>,
     std_solar_radiation_quality_code: CodeRecord,
     std_solar_radiation_quality_flag: CodeRecord,
 }
-impl<'de> Deserialize<'de> for GH1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GH1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GH1 {
             avg_solar_radiation: RecordValue::new(&parts[0], "W/m^2", 10),
             avg_solar_radiation_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -492,34 +489,32 @@ impl<'de> Deserialize<'de> for GH1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GJ1 {
-    sunshine_duration: RecordValue<i32>,
+    sunshine_duration: Option<RecordValue<i32>>,
     sunshine_duration_quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for GJ1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GJ1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GJ1 {
             sunshine_duration: RecordValue::new(&parts[0], "minutes", 1),
             sunshine_duration_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GK1 {
-    sunshine_quantity: RecordValue<i32>,
+    sunshine_quantity: Option<RecordValue<i32>>,
     sunshine_quantity_quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for GK1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GK1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GK1 {
             sunshine_quantity: RecordValue::new(&parts[0], "%", 1),
             sunshine_quantity_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -527,46 +522,44 @@ impl<'de> Deserialize<'de> for GK1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GL1 {
-    sunshine_duration: RecordValue<i32>,
+    sunshine_duration: Option<RecordValue<i32>>,
     sunshine_duration_quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for GL1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GL1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GL1 {
             sunshine_duration: RecordValue::new(&parts[0], "minutes", 1),
             sunshine_duration_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GM1 {
-    solar_irradiance_period: RecordValue<i32>,
-    global_irradiance: RecordValue<i32>,
+    solar_irradiance_period: Option<RecordValue<i32>>,
+    global_irradiance: Option<RecordValue<i32>>,
     global_irradiance_data_flag: CodeRecord,
     global_irradiance_quality_code: CodeRecord,
-    direct_beam_irradiance: RecordValue<i32>,
+    direct_beam_irradiance: Option<RecordValue<i32>>,
     direct_beam_irradiance_data_flag: CodeRecord,
     direct_beam_irradiance_quality_code: CodeRecord,
-    diffuse_irradiance: RecordValue<i32>,
+    diffuse_irradiance: Option<RecordValue<i32>>,
     diffuse_irradiance_data_flag: CodeRecord,
     diffuse_irradiance_quality_code: CodeRecord,
-    uvb_global_irradiance: RecordValue<i32>,
+    uvb_global_irradiance: Option<RecordValue<i32>>,
     uvb_global_irradiance_data_flag: CodeRecord,
     uvb_global_irradiance_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GM1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GM1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GM1 {
             solar_irradiance_period: RecordValue::new(&parts[0], "minutes", 1),
             global_irradiance: RecordValue::new(&parts[1], "W/m^2", 1),
@@ -584,26 +577,25 @@ impl<'de> Deserialize<'de> for GM1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GN1 {
-    solar_rad_period: RecordValue<i32>,
-    upwell_solar_rad: RecordValue<i32>,
+    solar_rad_period: Option<RecordValue<i32>>,
+    upwell_solar_rad: Option<RecordValue<i32>>,
     upwell_solar_rad_quality_code: CodeRecord,
-    downwell_thermal_if_rad: RecordValue<i32>,
+    downwell_thermal_if_rad: Option<RecordValue<i32>>,
     downwell_thermal_if_rad_quality_code: CodeRecord,
-    upwell_thermal_if_rad: RecordValue<i32>,
+    upwell_thermal_if_rad: Option<RecordValue<i32>>,
     upwell_thermal_if_rad_quality_code: CodeRecord,
-    photosynth_active_rad: RecordValue<i32>,
+    photosynth_active_rad: Option<RecordValue<i32>>,
     photosynth_active_rad_quality_code: CodeRecord,
-    solar_zenith_angle: RecordValue<i32>,
+    solar_zenith_angle: Option<RecordValue<i32>>,
     solar_zenith_angle_quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for GN1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GN1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GN1 {
             solar_rad_period: RecordValue::new(&parts[0], "minutes", 1),
             upwell_solar_rad: RecordValue::new(&parts[1], "W/m^2", 1),
@@ -620,22 +612,21 @@ impl<'de> Deserialize<'de> for GN1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GO1 {
-    net_solar_rad_period: RecordValue<i32>,
-    net_solar_rad: RecordValue<i32>,
+    net_solar_rad_period: Option<RecordValue<i32>>,
+    net_solar_rad: Option<RecordValue<i32>>,
     net_solar_rad_quality_code: CodeRecord,
-    net_thermal_if_rad: RecordValue<i32>,
-    net_rad: RecordValue<i32>,
+    net_thermal_if_rad: Option<RecordValue<i32>>,
+    net_rad: Option<RecordValue<i32>>,
     net_rad_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GO1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GO1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GO1 {
             net_solar_rad_period: RecordValue::new(&parts[0], "minutes", 1),
             net_solar_rad: RecordValue::new(&parts[1], "W/m^2", 1),
@@ -647,26 +638,25 @@ impl<'de> Deserialize<'de> for GO1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GP1 {
-    mod_solar_irradiance_period: RecordValue<i32>,
-    mod_global_horizontal: RecordValue<i32>,
+    mod_solar_irradiance_period: Option<RecordValue<i32>>,
+    mod_global_horizontal: Option<RecordValue<i32>>,
     mod_global_horizontal_source: CodeRecord,
-    mog_global_horizontal_uncertainty: RecordValue<i32>,
-    mod_direct_normal: RecordValue<i32>,
+    mog_global_horizontal_uncertainty: Option<RecordValue<i32>>,
+    mod_direct_normal: Option<RecordValue<i32>>,
     mod_direct_normal_source: CodeRecord,
-    mod_direct_normal_uncertainty: RecordValue<i32>,
-    mod_diffuse_horizontal: RecordValue<i32>,
+    mod_direct_normal_uncertainty: Option<RecordValue<i32>>,
+    mod_diffuse_horizontal: Option<RecordValue<i32>>,
     mod_diffuse_horizontal_source: CodeRecord,
-    mod_diffuse_horizontal_uncertainty: RecordValue<i32>,
+    mod_diffuse_horizontal_uncertainty: Option<RecordValue<i32>>,
 }
 
-impl<'de> Deserialize<'de> for GP1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GP1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GP1 {
             mod_solar_irradiance_period: RecordValue::new(&parts[0], "minutes", 1),
             mod_global_horizontal: RecordValue::new(&parts[1], "W/m^2", 1),
@@ -691,21 +681,20 @@ impl<'de> Deserialize<'de> for GP1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GQ1 {
-    solar_angle_time: RecordValue<i32>,
-    mean_zenith_angle: RecordValue<i32>,
+    solar_angle_time: Option<RecordValue<i32>>,
+    mean_zenith_angle: Option<RecordValue<i32>>,
     mean_zenith_angle_quality: CodeRecord,
-    mean_azimuth_angle: RecordValue<i32>,
+    mean_azimuth_angle: Option<RecordValue<i32>>,
     mean_azimuth_angle_quality: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GQ1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GQ1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GQ1 {
             solar_angle_time: RecordValue::new(&parts[0], "minutes", 1),
             mean_zenith_angle: RecordValue::new(&parts[1], "degrees", 10),
@@ -715,21 +704,20 @@ impl<'de> Deserialize<'de> for GQ1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct GR1 {
-    et_rad_time: RecordValue<i32>,
-    et_rad_horizontal_surface: RecordValue<i32>,
+    et_rad_time: Option<RecordValue<i32>>,
+    et_rad_horizontal_surface: Option<RecordValue<i32>>,
     et_rad_horizontal_surface_quality: CodeRecord,
-    et_rad_direct_normal: RecordValue<i32>,
+    et_rad_direct_normal: Option<RecordValue<i32>>,
     et_rad_direct_normal_quality: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for GR1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for GR1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(GR1 {
             et_rad_time: RecordValue::new(&parts[0], "minutes", 1),
             et_rad_horizontal_surface: RecordValue::new(&parts[1], "W/m^2", 1),

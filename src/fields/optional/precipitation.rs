@@ -1,8 +1,11 @@
+use std::str::FromStr;
+
 use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::util::{get_parts, parse_null};
 use crate::{model::RecordValue, util::is_null};
 use phf::phf_map;
 use serde::{Deserialize, Deserializer, Serialize};
+use serde_with::DeserializeFromStr;
 
 pub static CONDITION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
 
@@ -44,21 +47,21 @@ pub static DISCREPANCY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "9" => "Missing",
 };
 
-#[derive(Serialize, Debug, PartialEq)]
-pub struct AAx {
-    period_quantity: RecordValue<i8>,
-    depth_dimension: RecordValue<f64>,
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
+pub struct AAX {
+    period_quantity: Option<RecordValue<i8>>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AAx {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
-        Ok(AAx {
+impl FromStr for AAX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
+
+        Ok(AAX {
             period_quantity: RecordValue::new(&parts[0], "Hours", 1),
             depth_dimension: RecordValue::new(&parts[1], "mm", 10f64),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
@@ -67,19 +70,18 @@ impl<'de> Deserialize<'de> for AAx {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AB1 {
-    depth_dimension: RecordValue<f64>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AB1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AB1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(AB1 {
             depth_dimension: RecordValue::new(&parts[0], "mm", 10f64),
@@ -88,20 +90,18 @@ impl<'de> Deserialize<'de> for AB1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AC1 {
     duration_code: CodeRecord,
     characteristic_code: CodeRecord,
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AC1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 10)?;
+impl FromStr for AC1 {
+    type Err = &'static str;
 
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
         Ok(AC1 {
             duration_code: CodeRecord::new(&parts[0], &DURATION_CODES),
             characteristic_code: CodeRecord::new(&parts[1], &CHARACTERISTIC_CODES),
@@ -109,20 +109,19 @@ impl<'de> Deserialize<'de> for AC1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AD1 {
-    depth_dimension: RecordValue<f64>,
+    depth_dimension: Option<RecordValue<f64>>,
     dates_of_occurrence: Vec<String>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AD1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AD1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         let mut days: Vec<String> = Vec::new();
         // grow string at current index and insert a - in the middle
@@ -145,24 +144,24 @@ impl<'de> Deserialize<'de> for AD1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AE1 {
-    days_01: RecordValue<i8>,
+    days_01: Option<RecordValue<i8>>,
     days_01_quality: CodeRecord,
-    days_10: RecordValue<i8>,
+    days_10: Option<RecordValue<i8>>,
     days_10_quality: CodeRecord,
-    days_50: RecordValue<i8>,
+    days_50: Option<RecordValue<i8>>,
     days_50_quality: CodeRecord,
-    days_100: RecordValue<i8>,
+    days_100: Option<RecordValue<i8>>,
     days_100_quality: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AE1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AE1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
+
         Ok(AE1 {
             days_01: RecordValue::new(&parts[0], "Days", 1),
             days_01_quality: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -176,17 +175,16 @@ impl<'de> Deserialize<'de> for AE1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AG1 {
     discrepancy_code: CodeRecord,
-    estimated_water_depth_dimension: RecordValue<f64>,
+    estimated_water_depth_dimension: Option<RecordValue<f64>>,
 }
-impl<'de> Deserialize<'de> for AG1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AG1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(AG1 {
             discrepancy_code: CodeRecord::new(&parts[0], &DISCREPANCY_CODES),
@@ -195,21 +193,20 @@ impl<'de> Deserialize<'de> for AG1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AHX {
-    period_quantity: RecordValue<i8>,
-    depth_dimension: RecordValue<f64>,
+    period_quantity: Option<RecordValue<i8>>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     end_date_time: Option<String>,
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AHX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AHX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(AHX {
             period_quantity: RecordValue::new(&parts[0], "minutes", 1),
@@ -221,20 +218,19 @@ impl<'de> Deserialize<'de> for AHX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AIX {
-    period_quantity: RecordValue<i16>,
-    depth_dimension: RecordValue<f64>,
+    period_quantity: Option<RecordValue<i16>>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     end_date_time: Option<String>,
     quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for AIX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AIX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(AIX {
             period_quantity: RecordValue::new(&parts[0], "minutes", 1),
@@ -246,22 +242,22 @@ impl<'de> Deserialize<'de> for AIX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AJ1 {
-    depth_dimension: RecordValue<i16>,
+    depth_dimension: Option<RecordValue<i16>>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
-    equivalent_water_depth_dimension: RecordValue<f64>,
+    equivalent_water_depth_dimension: Option<RecordValue<f64>>,
     equivalent_water_condition_code: CodeRecord,
     equivalent_water_condition_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AJ1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AJ1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
+
         Ok(AJ1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 1),
             condition_code: CodeRecord::new(&parts[1], &CONDITION_CODES),
@@ -272,20 +268,20 @@ impl<'de> Deserialize<'de> for AJ1 {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AK1 {
-    depth_dimension: RecordValue<i16>,
+    depth_dimension: Option<RecordValue<i16>>,
     condition_code: CodeRecord,
     dates_of_occourence: [String; 3],
     quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for AK1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AK1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
+
         Ok(AK1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 1),
             condition_code: CodeRecord::new(&parts[1], &CONDITION_CODES),
@@ -295,19 +291,19 @@ impl<'de> Deserialize<'de> for AK1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct ALX {
-    period_quantity: RecordValue<i8>,
-    depth_dimension: RecordValue<i16>,
+    period_quantity: Option<RecordValue<i8>>,
+    depth_dimension: Option<RecordValue<i16>>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for ALX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for ALX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
+
         Ok(ALX {
             period_quantity: RecordValue::new(&parts[0], "hours", 1),
             depth_dimension: RecordValue::new(&parts[1], "cm", 1),
@@ -317,19 +313,19 @@ impl<'de> Deserialize<'de> for ALX {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AM1 {
-    depth_dimension: RecordValue<f64>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     dates_of_occourence: [String; 3],
     quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for AM1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AM1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
+
         Ok(AM1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 10f64),
             condition_code: CodeRecord::new(&parts[1], &CONDITION_CODES),
@@ -344,19 +340,18 @@ impl<'de> Deserialize<'de> for AM1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AN1 {
-    period_quantity: RecordValue<i8>,
-    depth_dimension: RecordValue<f64>,
+    period_quantity: Option<RecordValue<i8>>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for AN1 {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AN1 {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(AN1 {
             period_quantity: RecordValue::new(&parts[0], "hours", 1),
@@ -367,19 +362,18 @@ impl<'de> Deserialize<'de> for AN1 {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AOX {
-    period_quantity: RecordValue<i16>,
-    depth_dimension: RecordValue<f64>,
+    period_quantity: Option<RecordValue<i16>>,
+    depth_dimension: Option<RecordValue<f64>>,
     condition_code: CodeRecord,
     quality_code: CodeRecord,
 }
-impl<'de> Deserialize<'de> for AOX {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(d, 0)?;
+impl FromStr for AOX {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(AOX {
             period_quantity: RecordValue::new(&parts[0], "minutes", 1),

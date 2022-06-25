@@ -1,7 +1,10 @@
+use std::str::FromStr;
+
 use crate::model::RecordValue;
 use crate::util::get_parts;
 use phf::phf_map;
-use serde::{ Deserialize, Deserializer, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
+use serde_with::DeserializeFromStr;
 
 use super::codes::{CodeRecord, BOOL_CODES, QUALITY_CODES};
 
@@ -17,21 +20,19 @@ pub static WIND_OBSERVATION_TYPE_CODES: phf::Map<&'static str, &'static str> = p
     "V" => "Variable",
     "9" => "Missing",
 };
-
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Wind {
-    direction_angle: RecordValue<i32>,
+    direction_angle: Option<RecordValue<i32>>,
     direction_quality_code: CodeRecord,
     type_code: CodeRecord,
-    speed_rate: RecordValue<f64>,
+    speed_rate: Option<RecordValue<f64>>,
 }
 
-impl<'de> Deserialize<'de> for Wind {
-    fn deserialize<D>(d: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let mut parts = get_parts(d, 14)?;
+impl FromStr for Wind {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(Wind {
             direction_angle: RecordValue::<i32>::new(&parts[0], "°", 1),
@@ -58,20 +59,19 @@ pub static CEILING_DETERMINATION_CODE: phf::Map<&'static str, &'static str> = ph
     "9" => "Missing",
 };
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Ceiling {
-    height: RecordValue<i32>,
+    height: Option<RecordValue<i32>>,
     quality_code: CodeRecord,
     determination_code: CodeRecord,
     cavok: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for Ceiling {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(deserializer, 11)?;
+impl FromStr for Ceiling {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(Ceiling {
             height: RecordValue::<i32>::new(&parts[0], "m", 1),
@@ -88,20 +88,19 @@ pub static VISIBILITY_VARIABILITY_CODE: phf::Map<&'static str, &'static str> = p
     "9" => "Missing",
 };
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Visibility {
-    distance: RecordValue<i32>,
+    distance: Option<RecordValue<i32>>,
     distance_quality_code: CodeRecord,
     variability: CodeRecord,
     variability_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for Visibility {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(deserializer, 12)?;
+impl FromStr for Visibility {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(Visibility {
             distance: RecordValue::<i32>::new(&parts[0], "m", 1),
@@ -112,18 +111,16 @@ impl<'de> Deserialize<'de> for Visibility {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Temprature {
-    air_temperature: RecordValue<i32>,
+    air_temperature: Option<RecordValue<i32>>,
     air_temperature_quality_code: CodeRecord,
 }
+impl FromStr for Temprature {
+    type Err = &'static str;
 
-impl<'de> Deserialize<'de> for Temprature {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(deserializer, 7)?;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(Temprature {
             air_temperature: RecordValue::<i32>::new(&parts[0], "°C", 10),
@@ -131,18 +128,16 @@ impl<'de> Deserialize<'de> for Temprature {
         })
     }
 }
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Dew {
-    dew_point_temperature: RecordValue<i32>,
+    dew_point_temperature: Option<RecordValue<i32>>,
     dew_point_temperature_quality_code: CodeRecord,
 }
+impl FromStr for Dew {
+    type Err = &'static str;
 
-impl<'de> Deserialize<'de> for Dew {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(deserializer, 7)?;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(Dew {
             dew_point_temperature: RecordValue::<i32>::new(&parts[0], "°C", 10),
@@ -151,18 +146,17 @@ impl<'de> Deserialize<'de> for Dew {
     }
 }
 
-#[derive(Serialize, Debug, PartialEq)]
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct SeaLevelPressure {
-    pressure: RecordValue<i32>,
+    pressure: Option<RecordValue<i32>>,
     pressure_quality_code: CodeRecord,
 }
 
-impl<'de> Deserialize<'de> for SeaLevelPressure {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let parts = get_parts(deserializer, 0)?;
+impl FromStr for SeaLevelPressure {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let parts = get_parts(s);
 
         Ok(SeaLevelPressure {
             pressure: RecordValue::<i32>::new(&parts[0], "hPa", 10),

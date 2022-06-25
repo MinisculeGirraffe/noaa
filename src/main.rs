@@ -4,7 +4,6 @@ use model::Record;
 use std::error::Error;
 use std::io;
 use std::time::Instant;
-
 mod util;
 mod fields;
 
@@ -12,15 +11,18 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
     let mut results: Vec<Record> = Vec::new();
     let now = Instant::now();
+   /*  rdr.deserialize().par_bridge().into_par_iter().map(|r| {
+         Record::from(r.unwrap();
+        
+    });*/
+
     for result in rdr.deserialize() {
-        // The iterator yields Result<StringRecord, Error>, so we check the
-        // error here..
         let record: Record = result?;
         results.push(record);
     }
     let elapsed = now.elapsed();
-    println!("Parsed {} rows in {:.2?}: {}/row",results.len(), elapsed, elapsed.as_micros() as i128 / results.len() as i128);
-    //println!("{}",  serde_json::to_string(&results).unwrap());
+  // println!("Parsed {} rows in {:.2?}: {}/row",results.len(), elapsed, elapsed.as_micros() as i128 / results.len() as i128);
+    println!("{}",  serde_json::to_string(&results).unwrap());
 
     Ok(())
 }
