@@ -6,6 +6,7 @@ use std::str::FromStr;
 use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temprature, Visibility, Wind};
 use crate::fields::optional::precipitation::*;
 use crate::fields::optional::weather_occourance::*;
+use crate::fields::optional::cloud_solar::*;
 use crate::util::*;
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]
@@ -95,6 +96,38 @@ pub struct Record {
     ay2: Option<AYX>,
     az1: Option<AZX>,
     az2: Option<AZX>,
+    //cloud_solar:
+    ga1: Option<GAX>,
+    ga2: Option<GAX>,
+    ga3: Option<GAX>,
+    ga4: Option<GAX>,
+    ga5: Option<GAX>,
+    ga6: Option<GAX>,
+    gd1: Option<GDX>,
+    gd2: Option<GDX>,
+    gd3: Option<GDX>,
+    gd4: Option<GDX>,
+    gd5: Option<GDX>,
+    gd6: Option<GDX>,
+    ge1: Option<GE1>,
+    gf1: Option<GF1>,
+    gg1: Option<GGX>,
+    gg2: Option<GGX>,
+    gg3: Option<GGX>,
+    gg4: Option<GGX>,
+    gg5: Option<GGX>,
+    gg6: Option<GGX>,
+    gh1: Option<GH1>,
+    gj1: Option<GJ1>,
+    gk1: Option<GK1>,
+    gl1: Option<GL1>,
+    gm1: Option<GM1>,
+    gn1: Option<GN1>,
+    go1: Option<GO1>,
+    gp1: Option<GP1>,
+    gq1: Option<GQ1>,
+    gr1: Option<GR1>,
+
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]

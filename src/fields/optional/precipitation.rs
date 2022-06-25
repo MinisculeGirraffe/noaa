@@ -333,6 +333,7 @@ impl<'de> Deserialize<'de> for AM1 {
         Ok(AM1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 10f64),
             condition_code: CodeRecord::new(&parts[1], &CONDITION_CODES),
+            //TODO: parse dates
             dates_of_occourence: [
                 parts[2].to_string(),
                 parts[3].to_string(),
