@@ -8,9 +8,9 @@ use serde::{Serialize};
 use serde_with::DeserializeFromStr;
 
 pub static GAGUE_HEATER_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
- "0" => "Off",
- "1" => "On",
- "9" => "Missing",
+    "0" => "Off",
+    "1" => "On",
+    "9" => "Missing",
 };
 
 // CB1-2

@@ -1,6 +1,6 @@
 use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::model::RecordValue;
-use crate::util::{get_parts, is_null};
+use crate::util::{get_parts};
 use phf::phf_map;
 use serde::Serialize;
 use serde_with::DeserializeFromStr;

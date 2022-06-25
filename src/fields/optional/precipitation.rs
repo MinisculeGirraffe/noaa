@@ -8,33 +8,32 @@ use serde::Serialize;
 use serde_with::DeserializeFromStr;
 
 pub static CONDITION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
-
- "1" => "Measurement impossible or inaccurate",
- "2" => "Trace",
- "3" => "Begin accumulated period (precipitation amount missing until end of accumulated period)",
- "4" => "End accumulated period",
- "5" => "Begin deleted period (precipitation amount missing due to data problem)",
- "6" => "End deleted period",
- "7" => "Begin missing period",
- "8" => "End missing period",
- "E" => "Estimated data value (eg, from nearby station)",
- "I" => "Incomplete precipitation amount, excludes one or more missing reports, such as one or more 15-minute reports not included in the 1-hour precipitation total",
- "J" => "Incomplete precipitation amount, excludes one or more erroneous reports, such as one or more 1-hour precipitation amounts excluded from the 24-hour total",
- "9" => "Missing",
+    "1" => "Measurement impossible or inaccurate",
+    "2" => "Trace",
+    "3" => "Begin accumulated period (precipitation amount missing until end of accumulated period)",
+    "4" => "End accumulated period",
+    "5" => "Begin deleted period (precipitation amount missing due to data problem)",
+    "6" => "End deleted period",
+    "7" => "Begin missing period",
+    "8" => "End missing period",
+    "E" => "Estimated data value (eg, from nearby station)",
+    "I" => "Incomplete precipitation amount, excludes one or more missing reports, such as one or more 15-minute reports not included in the 1-hour precipitation total",
+    "J" => "Incomplete precipitation amount, excludes one or more erroneous reports, such as one or more 1-hour precipitation amounts excluded from the 24-hour total",
+    "9" => "Missing",
 };
 
 pub static DURATION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "0" => "Lasted less than 1 hour",
- "1" => "Lasted 1 - 3 hours",
- "2" => "Lasted 3 - 6 hours",
- "3" => "Lasted more than 6 hours",
- "9" => "Missing",
+    "0" => "Lasted less than 1 hour",
+    "1" => "Lasted 1 - 3 hours",
+    "2" => "Lasted 3 - 6 hours",
+    "3" => "Lasted more than 6 hours",
+    "9" => "Missing",
 };
 
 pub static CHARACTERISTIC_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "C" => "Continuous",
- "I" => "Intermittent",
- "9" => "Missing",
+    "C" => "Continuous",
+    "I" => "Intermittent",
+    "9" => "Missing",
 };
 
 pub static DISCREPANCY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
