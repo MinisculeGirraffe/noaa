@@ -4,7 +4,7 @@ use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::util::{get_parts, parse_null};
 use crate::{model::RecordValue, util::is_null};
 use phf::phf_map;
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::Serialize;
 use serde_with::DeserializeFromStr;
 
 pub static CONDITION_CODES: phf::Map<&'static str, &'static str> = phf_map! {

@@ -10,7 +10,7 @@ Implementing FromStr and Deserialize for all parameters.
 - [X] Weather Occurrence Data 27-34, 95-97
 - [X] Climate Reference Network Unique Data 35-45
 - [ ] Network Metadata 45-52
-- [ ] Runway Visual Range Data5 53
+- [X] Runway Visual Range Data 53
 - [X] Cloud and Solar Data 54-74
 - [ ] Hail Data 75
 - [ ] Ground Surface Data 76 - 82

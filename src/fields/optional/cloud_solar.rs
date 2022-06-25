@@ -4,7 +4,7 @@ use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::model::RecordValue;
 use crate::util::get_parts;
 use phf::phf_map;
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::{ Serialize};
 use serde_with::DeserializeFromStr;
 
 pub static COVERAGE_CODES: phf::Map<&'static str, &'static str> = phf_map! {

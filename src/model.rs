@@ -3,6 +3,7 @@ use crate::fields::optional::cloud_solar::*;
 use crate::fields::optional::precipitation::*;
 use crate::fields::optional::weather_occourance::*;
 use crate::fields::optional::climate_reference_network::*;
+use crate::fields::optional::runway_visual_range::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{ Deserialize, Serialize};
@@ -120,6 +121,8 @@ pub struct Record {
     cn2: Option<CN2>,
     cn3: Option<CN3>,
     cn4: Option<CN4>,
+    //runway_visual_range
+    ed1: Option<ED1>,
     //cloud_solar:
     ga1: Option<GAX>,
     ga2: Option<GAX>,

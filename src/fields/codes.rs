@@ -36,7 +36,7 @@ pub static QUALITY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "9" => "Passed gross limits check if element is present",
 };
 
-pub static SOURCE_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
+pub static _SOURCE_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
     "1" => "USAF SURFACE HOURLY observation, candidate for merge with NCEI SURFACE HOURLY (not yet merged, element cross-checks)",
     "2" => "NCEI SURFACE HOURLY observation, candidate for merge with USAF SURFACE HOURLY (not yet merged, failed element cross-checks)",
     "3" => "USAF SURFACE HOURLY/NCEI SURFACE HOURLY merged observation",
@@ -66,7 +66,7 @@ pub static SOURCE_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
     "9" => "Missing",
 };
 
-pub static REPORT_TYPE_CODE: phf::Map<&'static str, &'static str> = phf_map! {
+pub static _REPORT_TYPE_CODE: phf::Map<&'static str, &'static str> = phf_map! {
 
  "AERO" => "Aerological report",
  "AUST" => "Dataset from Australia",

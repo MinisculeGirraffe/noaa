@@ -3,7 +3,7 @@ use std::str::FromStr;
 use crate::model::RecordValue;
 use crate::util::get_parts;
 use phf::phf_map;
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::{ Serialize};
 use serde_with::DeserializeFromStr;
 
 use super::codes::{CodeRecord, BOOL_CODES, QUALITY_CODES};
