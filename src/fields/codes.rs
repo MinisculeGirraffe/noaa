@@ -35,7 +35,24 @@ pub static QUALITY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "7" => "Erroneous, data originate from an NCEI data source",
     "9" => "Passed gross limits check if element is present",
 };
+pub static DL_QUALITY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
+    "1" => "Passed all quality control checks",
+    "3" => "Failed all quality control checks",
+    "9" => "Missing",
+};
 
+pub static DL_QUALITY_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
+    "0" => "Passed all quality control checks",
+    "1" => "Did not pass all quality check",
+    "2" => "Did not pass all quality check",
+    "3" => "Did not pass all quality check",
+    "4" => "Did not pass all quality check",
+    "5" => "Did not pass all quality check",
+    "6" => "Did not pass all quality check",
+    "7" => "Did not pass all quality check",
+    "8" => "Did not pass all quality check",
+    "9" => "Did not pass all quality check",
+ };
 pub static _SOURCE_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
     "1" => "USAF SURFACE HOURLY observation, candidate for merge with NCEI SURFACE HOURLY (not yet merged, element cross-checks)",
     "2" => "NCEI SURFACE HOURLY observation, candidate for merge with USAF SURFACE HOURLY (not yet merged, failed element cross-checks)",

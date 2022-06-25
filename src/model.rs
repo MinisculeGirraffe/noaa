@@ -1,5 +1,6 @@
 use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temprature, Visibility, Wind};
 use crate::fields::optional::cloud_solar::*;
+use crate::fields::optional::network_metadata::*;
 use crate::fields::optional::precipitation::*;
 use crate::fields::optional::weather_occourance::*;
 use crate::fields::optional::climate_reference_network::*;
@@ -121,6 +122,30 @@ pub struct Record {
     cn2: Option<CN2>,
     cn3: Option<CN3>,
     cn4: Option<CN4>,
+    //network_metadata
+    co1: Option<CO1>,
+    co2: Option<COX>,
+    co3: Option<COX>,
+    co4: Option<COX>,
+    co5: Option<COX>,
+    co6: Option<COX>,
+    co7: Option<COX>,
+    co8: Option<COX>,
+    co9: Option<COX>,
+    cr1: Option<CR1>,
+    ct1: Option<CTX>,
+    ct2: Option<CTX>,
+    ct3: Option<CTX>,
+    cu1: Option<CUX>,
+    cu2: Option<CUX>,
+    cu3: Option<CUX>,
+    cv1: Option<CVX>,
+    cv2: Option<CVX>,
+    cv3: Option<CVX>,
+    cw1: Option<CW1>,
+    cx1: Option<CXX>,
+    cx2: Option<CXX>,
+    cx3: Option<CXX>,
     //runway_visual_range
     ed1: Option<ED1>,
     //cloud_solar:
@@ -173,7 +198,6 @@ impl<T> RecordValue<T> {
         for c in s.chars() {
             if c.is_numeric() && c != '9' {
                 check = true;
-                // divide inner by divide and then convert to option
                 break;
             }
         }

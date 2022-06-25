@@ -3,7 +3,13 @@ use serde::{de, Deserialize, Deserializer,  Serializer};
 
 
 
-
+pub fn parse_str(s: &str) -> Option<String> {
+    if is_null(s) {
+        None
+    } else {
+        Some(s.to_string())
+    }
+}
 pub fn get_parts(s: &str) -> Vec<String>{
     s.split(",").map(|s| s.to_string()).collect()
 }
