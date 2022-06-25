@@ -2,6 +2,7 @@ use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temprature, Visibility
 use crate::fields::optional::cloud_solar::*;
 use crate::fields::optional::precipitation::*;
 use crate::fields::optional::weather_occourance::*;
+use crate::fields::optional::climate_reference_network::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{ Deserialize, Serialize};
@@ -103,6 +104,22 @@ pub struct Record {
     mw5: Option<MWX>,
     mw6: Option<MWX>,
     mw7: Option<MWX>,
+    //climate_reference_network,
+    cb1: Option<CBX>,
+    cb2: Option<CBX>,
+    cf1: Option<CFX>,
+    cf2: Option<CFX>,
+    cf3: Option<CFX>,
+    cg1: Option<CGX>,
+    cg2: Option<CGX>,
+    cg3: Option<CGX>,
+    ch1: Option<CHX>,
+    ch2: Option<CHX>,
+    ci1: Option<CI1>,
+    cn1: Option<CN1>,
+    cn2: Option<CN2>,
+    cn3: Option<CN3>,
+    cn4: Option<CN4>,
     //cloud_solar:
     ga1: Option<GAX>,
     ga2: Option<GAX>,
