@@ -22,9 +22,13 @@ pub static WIND_OBSERVATION_TYPE_CODES: phf::Map<&'static str, &'static str> = p
 };
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Wind {
+    /// The angle, measured in a clockwise direction, between true north and the direction from which the wind is blowing.
     direction_angle: Option<RecordValue<i32>>,
+    /// The code that denotes a quality status of a reported WIND-OBSERVATION direction angle.
     direction_quality_code: CodeRecord,
+    /// The code that denotes the character of the WIND-OBSERVATION.
     type_code: CodeRecord,
+    /// The rate of horizontal travel of air past a fixed point.
     speed_rate: Option<RecordValue<f64>>,
 }
 
@@ -42,7 +46,7 @@ impl FromStr for Wind {
         })
     }
 }
-
+/// The code that denotes the method used to determine the ceiling.
 pub static CEILING_DETERMINATION_CODE: phf::Map<&'static str, &'static str> = phf_map! {
     "A" => "Aircraft",
     "B" => "Balloon",
@@ -58,12 +62,16 @@ pub static CEILING_DETERMINATION_CODE: phf::Map<&'static str, &'static str> = ph
     "W" => "Obscured",
     "9" => "Missing",
 };
-
+///The height above ground level (AGL) of the lowest cloud or obscuring phenomena layer aloft with 5/8 or more summation total sky cover, 
+///which may be predominantly opaque, or the vertical visibility into a surface-based obstruction.
+///Unlimited = 22000.
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Ceiling {
     height: Option<RecordValue<i32>>,
     quality_code: CodeRecord,
+    /// The code that denotes the method used to determine the ceiling.
     determination_code: CodeRecord,
+    /// The code that represents whether the 'Ceiling and Visibility Okay' (CAVOK) condition has been reported.
     cavok: CodeRecord,
 }
 
@@ -82,6 +90,7 @@ impl FromStr for Ceiling {
     }
 }
 
+// The code that denotes whether or not the reported visibility is variable.
 pub static VISIBILITY_VARIABILITY_CODE: phf::Map<&'static str, &'static str> = phf_map! {
     "N" => "Not variable",
     "V" => "Variable",
@@ -90,6 +99,7 @@ pub static VISIBILITY_VARIABILITY_CODE: phf::Map<&'static str, &'static str> = p
 
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Visibility {
+    /// The horizontal distance at which an object can be seen and identified.
     distance: Option<RecordValue<i32>>,
     distance_quality_code: CodeRecord,
     variability: CodeRecord,
@@ -112,17 +122,18 @@ impl FromStr for Visibility {
 }
 
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
-pub struct Temprature {
+pub struct Temperature {
+    /// The temperature of the air.
     air_temperature: Option<RecordValue<i32>>,
     air_temperature_quality_code: CodeRecord,
 }
-impl FromStr for Temprature {
+impl FromStr for Temperature {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s);
 
-        Ok(Temprature {
+        Ok(Temperature {
             air_temperature: RecordValue::<i32>::new(&parts[0], "°C", 10),
             air_temperature_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
         })
@@ -130,6 +141,7 @@ impl FromStr for Temprature {
 }
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct Dew {
+    ///The temperature to which a given parcel of air must be cooled at constant pressure and water vapor content in order for saturation to occur.
     dew_point_temperature: Option<RecordValue<i32>>,
     dew_point_temperature_quality_code: CodeRecord,
 }
@@ -148,6 +160,7 @@ impl FromStr for Dew {
 
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct SeaLevelPressure {
+    /// The air pressure relative to Mean Sea Level (MSL).
     pressure: Option<RecordValue<i32>>,
     pressure_quality_code: CodeRecord,
 }

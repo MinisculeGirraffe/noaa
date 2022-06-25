@@ -47,11 +47,16 @@ pub static DISCREPANCY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "9" => "Missing",
 };
 
+/// The identifier that represents an episode of LIQUID-PRECIPITATION.
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AAX {
+    ///The quantity of time over which the LIQUID-PRECIPITATION was measured.
     period_quantity: Option<RecordValue<i8>>,
+    /// The depth of LIQUID-PRECIPITATION that is measured at the time of an observation.
     depth_dimension: Option<RecordValue<f64>>,
+    /// The code that denotes whether a LIQUID-PRECIPITATION depth dimension was a trace value.
     condition_code: CodeRecord,
+    /// The code that denotes a quality status of the reported LIQUID-PRECIPITATION data.
     quality_code: CodeRecord,
 }
 
@@ -69,11 +74,14 @@ impl FromStr for AAX {
         })
     }
 }
-
+///The identifier that represents LIQUID-PRECIPITATION MONTHLY TOTAL data.
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AB1 {
+    /// The depth of LIQUID-PRECIPITATION for the month.
     depth_dimension: Option<RecordValue<f64>>,
+    /// The code that denotes whether a LIQUID-PRECIPITATION depth dimension was a trace value.
     condition_code: CodeRecord,
+    /// The code that denotes a quality status of the reported LIQUID-PRECIPITATION data.
     quality_code: CodeRecord,
 }
 
@@ -90,10 +98,14 @@ impl FromStr for AB1 {
         })
     }
 }
+/// The identifier that indicates the occurrence of precipitation history information.
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AC1 {
+    /// The code that denotes the duration of precipitation.
     duration_code: CodeRecord,
+    /// The code that denotes whether precipitation is continuous or intermittent.
     characteristic_code: CodeRecord,
+    /// The code that denotes a quality status of the reported PRECIPITATION duration/characteristic.
     quality_code: CodeRecord,
 }
 
@@ -109,11 +121,16 @@ impl FromStr for AC1 {
         })
     }
 }
+/// The identifier that represents LIQUID-PRECIPITATION, GREATEST IN 24 HOURS, data.
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct AD1 {
+    /// The depth of LIQUID-PRECIPITATION for the 24-hour period.
     depth_dimension: Option<RecordValue<f64>>,
+    ///The dates of occurrence of LIQUID-PRECIPITATION, given as the begin-end date for the 24-hour period, for up to 3 occurrences; e.g., 0405 indicates 24-hour period on days 04-05
     dates_of_occurrence: Vec<String>,
+    // The code that denotes whether a LIQUID-PRECIPITATION depth dimension was a trace value.
     condition_code: CodeRecord,
+    ///  The code that denotes a quality status of the reported LIQUID-PRECIPITATION data.
     quality_code: CodeRecord,
 }
 

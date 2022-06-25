@@ -1,8 +1,8 @@
-use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temprature, Visibility, Wind};
+use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temperature, Visibility, Wind};
 use crate::fields::optional::cloud_solar::*;
 use crate::fields::optional::network_metadata::*;
 use crate::fields::optional::precipitation::*;
-use crate::fields::optional::weather_occourance::*;
+use crate::fields::optional::weather_occurrence::*;
 use crate::fields::optional::climate_reference_network::*;
 use crate::fields::optional::runway_visual_range::*;
 use crate::util::*;
@@ -31,7 +31,7 @@ pub struct Record {
     wnd: Wind,
     cig: Ceiling,
     vis: Visibility,
-    tmp: Temprature,
+    tmp: Temperature,
     slp: SeaLevelPressure,
     // Precipitation
     aa1: Option<AAX>,
@@ -179,6 +179,8 @@ pub struct Record {
     gp1: Option<GP1>,
     gq1: Option<GQ1>,
     gr1: Option<GR1>,
+    //ground_surface
+    
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]
