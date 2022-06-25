@@ -7,7 +7,7 @@ Implementing FromStr and Deserialize for all parameters.
 - [X] Control Data Section 5-7
 - [X] Mandatory Data Section 8-12
 - [X] Precipitation Data 13-27
-- [ ] Weather Occurrence Data 27-34, 95-97
+- [X] Weather Occurrence Data 27-34, 95-97
 - [ ] Climate Reference Network Unique Data 35-45
 - [ ] Network Metadata 45-52
 - [ ] Runway Visual Range Data5 53

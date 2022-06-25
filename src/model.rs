@@ -38,162 +38,92 @@ pub struct Record {
     ab1: Option<AB1>,
     ac1: Option<AC1>,
     ad1: Option<AD1>,
-
     ae1: Option<AE1>,
-
     ag1: Option<AG1>,
-
     ah1: Option<AHX>,
-
     ah2: Option<AHX>,
-
     ah3: Option<AHX>,
-
     ah4: Option<AHX>,
-
     ah5: Option<AHX>,
-
     ah6: Option<AHX>,
-
     ai1: Option<AIX>,
-
     ai2: Option<AIX>,
-
     ai3: Option<AIX>,
-
     ai4: Option<AIX>,
-
     ai5: Option<AIX>,
-
     ai6: Option<AIX>,
-
     aj1: Option<AJ1>,
-
     ak1: Option<AK1>,
-
     al1: Option<ALX>,
-
     al2: Option<ALX>,
-
     al3: Option<ALX>,
-
     al4: Option<ALX>,
-
     am1: Option<AM1>,
-
     an1: Option<AN1>,
-
     ao1: Option<AOX>,
-
     ao2: Option<AOX>,
-
     ao3: Option<AOX>,
-
     ao4: Option<AOX>,
-
     // Weather Occurrence Data
     at1: Option<ATX>,
-
     at2: Option<ATX>,
-
     at3: Option<ATX>,
-
     at4: Option<ATX>,
-
     at5: Option<ATX>,
-
     at6: Option<ATX>,
-
     at7: Option<ATX>,
-
     at8: Option<ATX>,
-
     au1: Option<AUX>,
-
     au2: Option<AUX>,
-
     au3: Option<AUX>,
-
     au4: Option<AUX>,
-
     au5: Option<AUX>,
-
     au6: Option<AUX>,
-
     au7: Option<AUX>,
-
     au8: Option<AUX>,
-
     au9: Option<AUX>,
-
     aw1: Option<AWX>,
-
     aw2: Option<AWX>,
-
     aw3: Option<AWX>,
-
     aw4: Option<AWX>,
-
     ax1: Option<AXX>,
-
     ax2: Option<AXX>,
-
     ax3: Option<AXX>,
-
     ax4: Option<AXX>,
-
     ax5: Option<AXX>,
-
     ax6: Option<AXX>,
-
     ay1: Option<AYX>,
-
     ay2: Option<AYX>,
-
     az1: Option<AZX>,
-
     az2: Option<AZX>,
+    mw1: Option<MWX>,
+    mw2: Option<MWX>,
+    mw3: Option<MWX>,
+    mw4: Option<MWX>,
+    mw5: Option<MWX>,
+    mw6: Option<MWX>,
+    mw7: Option<MWX>,
     //cloud_solar:
     ga1: Option<GAX>,
-
     ga2: Option<GAX>,
-
     ga3: Option<GAX>,
-
     ga4: Option<GAX>,
-
     ga5: Option<GAX>,
-
     ga6: Option<GAX>,
-
     gd1: Option<GDX>,
-
     gd2: Option<GDX>,
-
     gd3: Option<GDX>,
-
     gd4: Option<GDX>,
-
     gd5: Option<GDX>,
-
     gd6: Option<GDX>,
-
     ge1: Option<GE1>,
-
     gf1: Option<GF1>,
-
     gg1: Option<GGX>,
-
     gg2: Option<GGX>,
-
     gg3: Option<GGX>,
-
     gg4: Option<GGX>,
-
     gg5: Option<GGX>,
-
     gg6: Option<GGX>,
-
     gh1: Option<GH1>,
     gj1: Option<GJ1>,
     gk1: Option<GK1>,
