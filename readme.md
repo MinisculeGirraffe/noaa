@@ -1,4 +1,4 @@
-# NOAA
+# NOAA Global Hourly - Rust
 
 Rust library for parsing [NOAA Global-Hourly](https://www.ncei.noaa.gov/data/global-hourly/) CSV files into structured objects.
 
