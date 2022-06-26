@@ -202,7 +202,9 @@ pub static QUALITY_FLAG_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "8" => "Did not pass all quality checks",
     "9" => "Did not pass all quality checks",
 };
-//todo expand code ranges
+// TODO: Statically mapping codes to names is a bit of a hack.
+// PHF maps are not really meant for this. 
+// using lazystatic over a match statement is probably a better idea.
 pub static DATA_FLAG_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "00" => "Untested (raw data)",
     "01" => "Passed one-component test; data fall within max-min limits of Kt, Kn, or Kd",

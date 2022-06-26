@@ -158,9 +158,9 @@ impl FromStr for Dew {
     }
 }
 
+/// The air pressure relative to Mean Sea Level (MSL).
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
 pub struct SeaLevelPressure {
-    /// The air pressure relative to Mean Sea Level (MSL).
     pressure: Option<RecordValue<i32>>,
     pressure_quality_code: CodeRecord,
 }
