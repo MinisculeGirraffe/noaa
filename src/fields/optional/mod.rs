@@ -6,3 +6,4 @@ pub mod runway_visual_range;
 pub mod cloud_solar;
 pub mod ground_surface;
 pub mod temperature;
+pub mod pressure;

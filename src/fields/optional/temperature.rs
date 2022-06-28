@@ -1,4 +1,4 @@
-use crate::fields::codes::{CodeRecord, DL_QUALITY_CODES, DL_QUALITY_FLAG, QUALITY_CODES};
+use crate::fields::codes::{CodeRecord, QUALITY_CODES};
 use crate::model::RecordValue;
 use crate::util::get_parts;
 use phf::phf_map;

@@ -7,6 +7,7 @@ use crate::fields::optional::runway_visual_range::*;
 use crate::fields::optional::weather_occurrence::*;
 use crate::fields::optional::ground_surface::*;
 use crate::fields::optional::temperature::*;
+use crate::fields::optional::pressure::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
@@ -199,6 +200,15 @@ pub struct Record {
     kf1: Option<KF1>,
     kg1: Option<KGX>,
     kg2: Option<KGX>,
+    //pressure
+    ma1: Option<MA1>,
+    md1: Option<MD1>,
+    me1: Option<ME1>,
+    mf1: Option<MF1>,
+    mg1: Option<MG1>,
+    mh1: Option<MH1>,
+    mk1: Option<MK1>,
+
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]
