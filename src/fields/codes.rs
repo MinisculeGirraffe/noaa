@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct CodeRecord {
     pub value: String,
-
 }
 
 impl CodeRecord {
@@ -21,6 +20,11 @@ pub static BOOL_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "N" => "No",
     "Y" => "Yes",
     "9" => "Missing",
+};
+
+pub static DERIVE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
+ "D" => "Derived from hourly values",
+ "9" => "missing",
 };
 
 pub static QUALITY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
@@ -41,17 +45,17 @@ pub static DL_QUALITY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
 };
 
 pub static DL_QUALITY_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
-    "0" => "Passed all quality control checks",
-    "1" => "Did not pass all quality check",
-    "2" => "Did not pass all quality check",
-    "3" => "Did not pass all quality check",
-    "4" => "Did not pass all quality check",
-    "5" => "Did not pass all quality check",
-    "6" => "Did not pass all quality check",
-    "7" => "Did not pass all quality check",
-    "8" => "Did not pass all quality check",
-    "9" => "Did not pass all quality check",
- };
+   "0" => "Passed all quality control checks",
+   "1" => "Did not pass all quality check",
+   "2" => "Did not pass all quality check",
+   "3" => "Did not pass all quality check",
+   "4" => "Did not pass all quality check",
+   "5" => "Did not pass all quality check",
+   "6" => "Did not pass all quality check",
+   "7" => "Did not pass all quality check",
+   "8" => "Did not pass all quality check",
+   "9" => "Did not pass all quality check",
+};
 pub static _SOURCE_FLAG: phf::Map<&'static str, &'static str> = phf_map! {
     "1" => "USAF SURFACE HOURLY observation, candidate for merge with NCEI SURFACE HOURLY (not yet merged, element cross-checks)",
     "2" => "NCEI SURFACE HOURLY observation, candidate for merge with USAF SURFACE HOURLY (not yet merged, failed element cross-checks)",
@@ -125,4 +129,3 @@ pub static _REPORT_TYPE_CODE: phf::Map<&'static str, &'static str> = phf_map! {
     "WNO" => "Washington Naval Observatory",
     "99999" => "Missing",
 };
-

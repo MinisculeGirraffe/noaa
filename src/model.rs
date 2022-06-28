@@ -8,6 +8,7 @@ use crate::fields::optional::weather_occurrence::*;
 use crate::fields::optional::ground_surface::*;
 use crate::fields::optional::temperature::*;
 use crate::fields::optional::pressure::*;
+use crate::fields::optional::wind::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
@@ -208,7 +209,23 @@ pub struct Record {
     mg1: Option<MG1>,
     mh1: Option<MH1>,
     mk1: Option<MK1>,
-
+    //wind
+    oa1: Option<OAX>,
+    oa2: Option<OAX>,
+    oa3: Option<OAX>,
+    oa4: Option<OAX>,
+    oa5: Option<OAX>,
+    ob1: Option<OBX>,
+    ob2: Option<OBX>,
+    oc1: Option<OC1>,
+    od1: Option<ODX>,
+    od2: Option<ODX>,
+    od3: Option<ODX>,
+    oe1: Option<OEX>,
+    oe2: Option<OEX>,
+    oe3: Option<OEX>,
+    rh1: Option<RHX>,
+    rh2: Option<RHX>,
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]

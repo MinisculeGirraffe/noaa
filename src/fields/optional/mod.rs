@@ -7,3 +7,4 @@ pub mod cloud_solar;
 pub mod ground_surface;
 pub mod temperature;
 pub mod pressure;
+pub mod wind;
