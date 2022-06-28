@@ -13,7 +13,7 @@ Implementing FromStr and Deserialize for all parameters.
 - [X] Runway Visual Range Data 53
 - [X] Cloud and Solar Data 54-74
 - [ ] Hail Data 75
-- [ ] Ground Surface Data 76 - 82
+- [X] Ground Surface Data 76 - 82
 - [ ] Temperature Data  82 - 99
 - [ ] Pressure Data 88-94
 - [ ] Wind Data 98 - 103
