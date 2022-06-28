@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct CodeRecord {
     pub value: String,
-    pub description: String,
+
 }
 
 impl CodeRecord {
@@ -13,7 +13,6 @@ impl CodeRecord {
 
         CodeRecord {
             value: value.to_string(),
-            description: map.get(value.trim()).unwrap().to_string(),
         }
     }
 }

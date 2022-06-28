@@ -1,13 +1,14 @@
 use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temperature, Visibility, Wind};
+use crate::fields::optional::climate_reference_network::*;
 use crate::fields::optional::cloud_solar::*;
 use crate::fields::optional::network_metadata::*;
 use crate::fields::optional::precipitation::*;
-use crate::fields::optional::weather_occurrence::*;
-use crate::fields::optional::climate_reference_network::*;
 use crate::fields::optional::runway_visual_range::*;
+use crate::fields::optional::weather_occurrence::*;
+use crate::fields::optional::ground_surface::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
-use serde::{ Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 use serde_with::skip_serializing_none;
 use std::str::FromStr;
 
@@ -180,7 +181,10 @@ pub struct Record {
     gq1: Option<GQ1>,
     gr1: Option<GR1>,
     //ground_surface
-    
+    ia1: Option<IA1>,
+    ia2: Option<IA2>,
+    ib1: Option<IB1>,
+    ic1: Option<IC1>,
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]

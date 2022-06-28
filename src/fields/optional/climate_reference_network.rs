@@ -248,7 +248,7 @@ impl FromStr for CN4 {
             gague_heater_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
             door_flag: CodeRecord {
                 value: door_flag.to_string(),
-                description: message.to_string(),
+             
             },
             door_flag_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             door_flag_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
