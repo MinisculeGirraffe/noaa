@@ -6,6 +6,7 @@ use crate::fields::optional::precipitation::*;
 use crate::fields::optional::runway_visual_range::*;
 use crate::fields::optional::weather_occurrence::*;
 use crate::fields::optional::ground_surface::*;
+use crate::fields::optional::temperature::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
@@ -185,6 +186,19 @@ pub struct Record {
     ia2: Option<IA2>,
     ib1: Option<IB1>,
     ic1: Option<IC1>,
+    //Temperature
+    ka1: Option<KAX>,
+    ka2: Option<KAX>,
+    ka3: Option<KAX>,
+    ka4: Option<KAX>,
+    kc1: Option<KCX>,
+    kc2: Option<KCX>,
+    kd1: Option<KDX>,
+    kd2: Option<KDX>,
+    ke1: Option<KE1>,
+    kf1: Option<KF1>,
+    kg1: Option<KGX>,
+    kg2: Option<KGX>,
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]
