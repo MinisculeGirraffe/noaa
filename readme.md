@@ -17,7 +17,7 @@ Implementing FromStr and Deserialize for all parameters.
 - [X] Temperature Data  82 - 99
 - [X] Pressure Data 88-94
 - [X] Wind Data 98 - 103
-- [ ] Sea Surface Temperature Data 104
+- [X] Sea Surface Temperature Data 104
 - [ ] Soil Temperature Data 105 - 106
 - [ ] Marine Data 106 - 116
 - [ ] Remarks Data Section 116 - 117
