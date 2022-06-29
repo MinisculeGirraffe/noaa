@@ -240,7 +240,7 @@ pub struct UA1 {
 impl FromStr for UA1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(UA1 {
             method_code: CodeRecord::new(&parts[0], &METHOD_CODES),
@@ -264,8 +264,7 @@ pub struct UGX {
 impl FromStr for UGX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
-
+        let parts = get_parts(s)?;
         Ok(UGX {
             period_quantity: RecordValue::<isize>::new(&parts[0], "seconds", 1isize),
             height_dimension: RecordValue::<f64>::new(&parts[1], "meters", 10f64),
@@ -285,7 +284,7 @@ pub struct WA1 {
 impl FromStr for WA1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(WA1 {
             source_code: CodeRecord::new(&parts[0], &ICE_ACCRETION_SOURCE_CODES),
@@ -313,7 +312,7 @@ pub struct WD1 {
 impl FromStr for WD1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(WD1 {
             edge_bearing_code: CodeRecord::new(&parts[0], &EDGE_BEARING_CODES),
@@ -348,7 +347,7 @@ pub struct WG1 {
 impl FromStr for WG1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(WG1 {
             edge_bearing_code: CodeRecord::new(&parts[0], &EDGE_BEARING_CODES),
@@ -373,7 +372,7 @@ pub struct WJ1 {
 impl FromStr for WJ1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(WJ1 {
             ice_thickness: RecordValue::<f64>::new(&parts[0], "cm", 1f64),

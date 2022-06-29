@@ -1,12 +1,29 @@
+use std::num::ParseFloatError;
 use std::str::FromStr;
 
-use crate::model::RecordValue;
 use crate::util::get_parts;
+use crate::{model::RecordValue, util::is_null};
 use phf::phf_map;
-use serde::{ Serialize};
+use serde::Serialize;
 use serde_with::DeserializeFromStr;
 
 use super::codes::{CodeRecord, BOOL_CODES, QUALITY_CODES};
+
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
+pub struct GeoPhysicalPoint(Option<f64>);
+
+impl FromStr for GeoPhysicalPoint {
+    type Err = ParseFloatError;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        //parse string as float
+        if is_null(s) {
+            Ok(GeoPhysicalPoint(None))
+        } else {
+            let f = s.parse::<f64>()?;
+            Ok(GeoPhysicalPoint(Some(f)))
+        }
+    }
+}
 
 pub static WIND_OBSERVATION_TYPE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "A" => "Abridged Beaufort",
@@ -36,7 +53,7 @@ impl FromStr for Wind {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(Wind {
             direction_angle: RecordValue::<i32>::new(&parts[0], "°", 1),
@@ -62,7 +79,7 @@ pub static CEILING_DETERMINATION_CODE: phf::Map<&'static str, &'static str> = ph
     "W" => "Obscured",
     "9" => "Missing",
 };
-///The height above ground level (AGL) of the lowest cloud or obscuring phenomena layer aloft with 5/8 or more summation total sky cover, 
+///The height above ground level (AGL) of the lowest cloud or obscuring phenomena layer aloft with 5/8 or more summation total sky cover,
 ///which may be predominantly opaque, or the vertical visibility into a surface-based obstruction.
 ///Unlimited = 22000.
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
@@ -79,7 +96,7 @@ impl FromStr for Ceiling {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(Ceiling {
             height: RecordValue::<i32>::new(&parts[0], "m", 1),
@@ -110,7 +127,7 @@ impl FromStr for Visibility {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(Visibility {
             distance: RecordValue::<i32>::new(&parts[0], "m", 1),
@@ -131,7 +148,7 @@ impl FromStr for Temperature {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(Temperature {
             air_temperature: RecordValue::<i32>::new(&parts[0], "°C", 10),
@@ -149,7 +166,7 @@ impl FromStr for Dew {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(Dew {
             dew_point_temperature: RecordValue::<i32>::new(&parts[0], "°C", 10),
@@ -169,7 +186,7 @@ impl FromStr for SeaLevelPressure {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(SeaLevelPressure {
             pressure: RecordValue::<i32>::new(&parts[0], "hPa", 10),

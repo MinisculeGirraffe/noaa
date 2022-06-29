@@ -1,38 +1,42 @@
-use crate::fields::mandatory::{Ceiling, SeaLevelPressure, Temperature, Visibility, Wind};
+use crate::fields::mandatory::{
+    Ceiling, GeoPhysicalPoint, SeaLevelPressure, Temperature, Visibility, Wind,
+};
 use crate::fields::optional::climate_reference_network::*;
 use crate::fields::optional::cloud_solar::*;
+use crate::fields::optional::ground_surface::*;
+use crate::fields::optional::marine::*;
 use crate::fields::optional::network_metadata::*;
 use crate::fields::optional::precipitation::*;
-use crate::fields::optional::runway_visual_range::*;
-use crate::fields::optional::weather_occurrence::*;
-use crate::fields::optional::ground_surface::*;
-use crate::fields::optional::temperature::*;
 use crate::fields::optional::pressure::*;
-use crate::fields::optional::wind::*;
+use crate::fields::optional::runway_visual_range::*;
 use crate::fields::optional::sea_surface_temperature::*;
-use crate::fields::optional::marine::*;
+use crate::fields::optional::temperature::*;
+use crate::fields::optional::weather_occurrence::*;
+use crate::fields::optional::wind::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
-use serde_with::skip_serializing_none;
+use serde_with::{skip_serializing_none, DeserializeFromStr};
+use std::fmt::{Debug, Display};
 use std::str::FromStr;
 
 #[skip_serializing_none]
 #[derive(Deserialize, Serialize, Debug, PartialEq)]
 #[serde(rename_all(serialize = "lowercase", deserialize = "UPPERCASE"))]
 pub struct Record {
-    station: String,
+    station: Value<String>,
     #[serde(serialize_with = "str_from_native_date_time")]
     #[serde(deserialize_with = "naive_date_time_from_str")]
     date: NaiveDateTime,
-    source: String,
-    latitude: f64,
-    longitude: f64,
+    source: Value<String>,
+    /// The latitude coordinate of a GEOPHYSICAL-POINT-OBSERVATION where Southern Hemisphere is negative.
+    latitude: Value<f64>,
+    /// The longitude coordinate of a GEOPHYSICAL-POINT-OBSERVATION where values west from 000000 to 179999 are signed negative.
+    longitude: Value<f64>,
     elevation: f64,
     name: String,
-    report_type: String,
-    #[serde(deserialize_with = "remove_whitespace")]
-    call_sign: String,
+    report_type: Value<String>,
+    call_sign: Value<String>,
     quality_control: String,
     wnd: Wind,
     cig: Ceiling,
@@ -250,7 +254,6 @@ impl<T> RecordValue<T> {
         <T as FromStr>::Err: std::fmt::Debug,
     {
         let mut check = false;
-
         //Check if the value isn't all 9's
         for c in s.chars() {
             if c.is_numeric() && c != '9' {
@@ -266,6 +269,25 @@ impl<T> RecordValue<T> {
             })
         } else {
             None
+        }
+    }
+}
+
+#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
+pub struct Value<T>(Option<T>);
+
+impl<T: FromStr> FromStr for Value<T> {
+    type Err = T::Err;
+    fn from_str(s: &str) -> Result<Self, Self::Err>
+    where
+        T: FromStr,
+    {
+        //parse string as float
+        if is_null(s) {
+            Ok(Value(None))
+        } else {
+            let f = s.parse::<T>()?;
+            Ok(Value(Some(f)))
         }
     }
 }

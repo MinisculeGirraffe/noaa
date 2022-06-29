@@ -13,7 +13,7 @@ pub struct CO1 {
 impl FromStr for CO1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CO1 {
             climate_division: RecordValue::<i32>::new(&parts[0], "", 1),
             time_conversion: RecordValue::<i32>::new(&parts[1], "hours", 1),
@@ -30,7 +30,7 @@ pub struct COX {
 impl FromStr for COX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         //todo revisit later. This is wonky and might break things
         let element_id = match is_null(&parts[0]) {
             true => None,
@@ -51,7 +51,7 @@ pub struct CR1 {
 impl FromStr for CR1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CR1 {
             version: RecordValue::<f64>::new(&parts[0], "", 1000f64),
             quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -70,7 +70,7 @@ pub struct CTX {
 impl FromStr for CTX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CTX {
             air_temp: RecordValue::<f64>::new(&parts[0], "C", 10f64),
             air_temp_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -93,7 +93,7 @@ pub struct CUX {
 impl FromStr for CUX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CUX {
             air_temp: RecordValue::<f64>::new(&parts[0], "C", 10f64),
             air_temp_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -125,7 +125,7 @@ pub struct CVX {
 impl FromStr for CVX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CVX {
             air_temp_min: RecordValue::<f64>::new(&parts[0], "C", 10f64),
             air_temp_min_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -155,7 +155,7 @@ pub struct CW1 {
 impl FromStr for CW1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CW1 {
             wetness_1: RecordValue::<f64>::new(&parts[0], "", 10f64),
             wetness_1_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -187,7 +187,7 @@ pub struct CXX {
 impl FromStr for CXX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CXX {
             precipitation_total_hourly: RecordValue::<f64>::new(&parts[0], "mm", 10f64),
             precipitation_total_hourly_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),

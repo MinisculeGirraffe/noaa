@@ -18,6 +18,5 @@ fn main() -> Result<(), Box<dyn Error>> {
     let elapsed = now.elapsed();
    //println!("Parsed {} rows in {:.2?}: {}/row",results.len(), elapsed, elapsed.as_micros() as i128 / results.len() as i128);
    println!("{}",  serde_json::to_string(&results).unwrap());
-
     Ok(())
 }

@@ -13,7 +13,7 @@ pub struct SA1 {
 impl FromStr for SA1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(SA1 {
             temperature: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             temperature_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),

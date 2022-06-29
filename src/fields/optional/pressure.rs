@@ -36,7 +36,7 @@ pub struct MA1 {
 impl FromStr for MA1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(MA1 {
             altimeter_setting_rate: RecordValue::<f64>::new(&parts[0], "hPa", 10f64),
             altimeter_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -58,7 +58,7 @@ pub struct MD1 {
 impl FromStr for MD1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(MD1 {
             tendency_code: CodeRecord::new(&parts[0], &TENDENCY_CODES),
             tendency_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -79,7 +79,7 @@ pub struct ME1 {
 impl FromStr for ME1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(ME1 {
             code: CodeRecord::new(&parts[0], &ISOBARIC_LEVEL_CODE),
             height_dimension: RecordValue::<f64>::new(&parts[1], "m", 1f64),
@@ -99,7 +99,7 @@ pub struct MF1 {
 impl FromStr for MF1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(MF1 {
             avg_station_pressure_day: RecordValue::<f64>::new(&parts[0], "hPa", 10f64),
             avg_station_pressure_day_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -119,7 +119,7 @@ pub struct MG1 {
 impl FromStr for MG1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(MG1 {
             avg_station_pressure_day: RecordValue::<f64>::new(&parts[0], "hPa", 10f64),
             avg_station_pressure_day_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -139,7 +139,7 @@ pub struct MH1 {
 impl FromStr for MH1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(MH1 {
             avg_station_pressure_month: RecordValue::<f64>::new(&parts[0], "hPa", 10f64),
             avg_station_pressure_month_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -160,7 +160,7 @@ pub struct MK1 {
 impl FromStr for MK1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(MK1 {
             max_sea_level_pressure_month: RecordValue::<f64>::new(&parts[0], "hPa", 10f64),
             max_sea_level_pressure_month_date_time: RecordValue::<isize>::new(&parts[1], "", 1),

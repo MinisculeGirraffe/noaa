@@ -25,7 +25,7 @@ impl FromStr for ED1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(ED1 {
             direction_angle: RecordValue::<f64>::new(&parts[0], "°", 0.1f64),
             designator_code: CodeRecord::new(&parts[1], &RANGE_OBSERVATION),

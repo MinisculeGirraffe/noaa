@@ -61,7 +61,7 @@ pub struct IA1 {
 impl FromStr for IA1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(IA1 {
             observation_code: CodeRecord::new(&parts[0], &OBSERVATION_CODES),
@@ -82,7 +82,7 @@ pub struct IA2 {
 impl FromStr for IA2 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(IA2 {
             min_temp_period: RecordValue::<f64>::new(&parts[0], "hours", 1f64),
             min_temp: RecordValue::<f64>::new(&parts[1], "C", 10f64),
@@ -118,7 +118,7 @@ pub struct IB1 {
 impl FromStr for IB1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(IB1 {
             surftemp: RecordValue::<f64>::new(&parts[0], "C", 10f64),
             surftemp_qc: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -153,7 +153,7 @@ pub struct IC1 {
 impl FromStr for IC1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(IC1 {
             time_period: RecordValue::<isize>::new(&parts[0], "hours", 1isize),
             wind_movement: RecordValue::<isize>::new(&parts[1], "Statute Miles", 1isize),

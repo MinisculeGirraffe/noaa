@@ -24,7 +24,7 @@ pub struct CBX {
 impl FromStr for CBX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CBX {
             period_quantity: RecordValue::<isize>::new(&parts[0], "Minutes", 1),
             liquid_depth: RecordValue::<f64>::new(&parts[1], "mm", 10f64),
@@ -45,7 +45,7 @@ pub struct CFX {
 impl FromStr for CFX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CFX {
             fan_speed: RecordValue::<i32>::new(&parts[0], "RPM", 1),
             quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -63,7 +63,7 @@ pub struct CGX {
 impl FromStr for CGX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CGX {
             liquid_depth: RecordValue::<f64>::new(&parts[0], "mm", 10f64),
             quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -85,7 +85,7 @@ pub struct CHX {
 impl FromStr for CHX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CHX {
             period_quantity: RecordValue::<u8>::new(&parts[0], "Minutes", 1),
             avg_air_temp: RecordValue::<f64>::new(&parts[1], "°C", 10f64),
@@ -115,7 +115,7 @@ pub struct CI1 {
 impl FromStr for CI1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CI1 {
             hourly_min_air_temp: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             hourly_min_air_temp_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -148,7 +148,7 @@ pub struct CN1 {
 impl FromStr for CN1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CN1 {
             battery_voltage: RecordValue::<f64>::new(&parts[0], "V", 10f64),
             battery_voltage_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -178,7 +178,7 @@ pub struct CN2 {
 impl FromStr for CN2 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(CN2 {
             tinlet_temp: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
@@ -206,7 +206,7 @@ pub struct CN3 {
 impl FromStr for CN3 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(CN3 {
             ref_res_avg: RecordValue::<f64>::new(&parts[0], "ohms", 10f64),
             ref_res_avg_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -234,7 +234,7 @@ pub struct CN4 {
 impl FromStr for CN4 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         let door_flag = isize::from_str_radix(&parts[3], 2).unwrap();
         let message = match door_flag {
             0 => "closed",
@@ -246,10 +246,7 @@ impl FromStr for CN4 {
             gague_heater_flag: CodeRecord::new(&parts[0], &GAGUE_HEATER_FLAG),
             gague_heater_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             gague_heater_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
-            door_flag: CodeRecord {
-                value: door_flag.to_string(),
-             
-            },
+            door_flag: CodeRecord::new(&message, &DL_QUALITY_CODES), //placeholder quality code              
             door_flag_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             door_flag_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
             fort_trans: RecordValue::<f64>::new(&parts[6], "watts", 10f64),

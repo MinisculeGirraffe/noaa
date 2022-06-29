@@ -2,17 +2,14 @@ use phf::phf_map;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
-pub struct CodeRecord {
-    pub value: String,
-}
+pub struct CodeRecord (String);
 
 impl CodeRecord {
     pub fn new(value: &str, map: &phf::Map<&'static str, &'static str>) -> CodeRecord {
         //trim whitespace from value
 
-        CodeRecord {
-            value: value.trim().to_string(),
-        }
+        CodeRecord (value.trim().to_string())
+            
     }
 }
 

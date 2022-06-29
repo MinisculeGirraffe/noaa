@@ -41,7 +41,7 @@ pub struct OAX {
 impl FromStr for OAX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(OAX {
             type_code: CodeRecord::new(&parts[0], &TYPE_CODES),
             period_quantity: RecordValue::<f64>::new(&parts[1], "hours", 1f64),
@@ -71,7 +71,7 @@ pub struct OBX {
 impl FromStr for OBX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(OBX {
             wind_avg_time: RecordValue::<f64>::new(&parts[0], "minutes", 1f64),
             wind_max_gust: RecordValue::<f64>::new(&parts[1], "m/s", 10f64),
@@ -97,7 +97,7 @@ pub struct OC1 {
 impl FromStr for OC1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(OC1 {
             speed_rate: RecordValue::<f64>::new(&parts[0], "m/s", 10f64),
             speed_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
@@ -118,7 +118,7 @@ pub struct ODX {
 impl FromStr for ODX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(ODX {
             type_code: CodeRecord::new(&parts[0], &TYPE_CODES),
             period_quantity: RecordValue::<f64>::new(&parts[1], "hours", 1f64),
@@ -142,7 +142,7 @@ pub struct OEX {
 impl FromStr for OEX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(OEX {
             type_code: CodeRecord::new(&parts[0], &SUMMARY_TYPE_CODES),
             period_quantity: RecordValue::<f64>::new(&parts[1], "hours", 1f64),
@@ -166,7 +166,7 @@ pub struct RHX {
 impl FromStr for RHX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(RHX {
             period_quantity: RecordValue::<f64>::new(&parts[0], "hours", 1f64),
             code: CodeRecord::new(&parts[1], &RH_CODES),

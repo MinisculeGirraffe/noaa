@@ -63,7 +63,7 @@ impl FromStr for AAX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AAX {
             period_quantity: RecordValue::new(&parts[0], "Hours", 1),
@@ -88,7 +88,7 @@ impl FromStr for AB1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AB1 {
             depth_dimension: RecordValue::new(&parts[0], "mm", 10f64),
@@ -112,7 +112,7 @@ impl FromStr for AC1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(AC1 {
             duration_code: CodeRecord::new(&parts[0], &DURATION_CODES),
             characteristic_code: CodeRecord::new(&parts[1], &CHARACTERISTIC_CODES),
@@ -137,7 +137,7 @@ impl FromStr for AD1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         let mut days: Vec<String> = Vec::new();
         // grow string at current index and insert a - in the middle
@@ -176,7 +176,7 @@ impl FromStr for AE1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AE1 {
             days_01: RecordValue::new(&parts[0], "Days", 1),
@@ -200,7 +200,7 @@ impl FromStr for AG1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AG1 {
             discrepancy_code: CodeRecord::new(&parts[0], &DISCREPANCY_CODES),
@@ -222,7 +222,7 @@ impl FromStr for AHX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AHX {
             period_quantity: RecordValue::new(&parts[0], "minutes", 1),
@@ -246,7 +246,7 @@ impl FromStr for AIX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AIX {
             period_quantity: RecordValue::new(&parts[0], "minutes", 1),
@@ -272,7 +272,7 @@ impl FromStr for AJ1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AJ1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 1),
@@ -296,7 +296,7 @@ impl FromStr for AK1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AK1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 1),
@@ -318,7 +318,7 @@ impl FromStr for ALX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(ALX {
             period_quantity: RecordValue::new(&parts[0], "hours", 1),
@@ -340,7 +340,7 @@ impl FromStr for AM1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AM1 {
             depth_dimension: RecordValue::new(&parts[0], "cm", 10f64),
@@ -367,7 +367,7 @@ impl FromStr for AN1 {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AN1 {
             period_quantity: RecordValue::new(&parts[0], "hours", 1),
@@ -389,7 +389,7 @@ impl FromStr for AOX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AOX {
             period_quantity: RecordValue::new(&parts[0], "minutes", 1),

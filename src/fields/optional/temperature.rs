@@ -42,7 +42,7 @@ pub struct KAX {
 impl FromStr for KAX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(KAX {
             period_quantity: RecordValue::<f64>::new(&parts[0], "hours", 10f64),
             code: CodeRecord::new(&parts[1], &CODES),
@@ -64,7 +64,7 @@ pub struct KCX {
 impl FromStr for KCX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(KCX {
             code: CodeRecord::new(&parts[0], &CODES),
             condition_code: CodeRecord::new(&parts[1], &CONDITION_CODES),
@@ -88,7 +88,7 @@ pub struct KDX {
 impl FromStr for KDX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(KDX {
             period_quantity: RecordValue::<isize>::new(&parts[0], "hours", 1isize),
             code: CodeRecord::new(&parts[1], &HEATING_COOLING_DAY_CODES),
@@ -110,7 +110,7 @@ pub struct KE1 {
 impl FromStr for KE1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(KE1 {
             max_temp_32_f_days: RecordValue::<isize>::new(&parts[0], "Days", 1isize),
             max_temp_32_f_days_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -131,7 +131,7 @@ pub struct KF1 {
 impl FromStr for KF1 {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(KF1 {
             air_temp: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             air_temp_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
@@ -151,7 +151,7 @@ pub struct KGX {
 impl FromStr for KGX {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(KGX {
             period_quantity: RecordValue::<isize>::new(&parts[0], "hours", 1isize),
             code: CodeRecord::new(&parts[1], &AVERAGE_DEW_POINT_AND_WET_BULB_TEMPERATURE_CODE),

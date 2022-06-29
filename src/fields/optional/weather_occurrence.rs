@@ -349,7 +349,7 @@ impl FromStr for ATX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(ATX {
             source_element: CodeRecord::new(&parts[0], &SOURCE_ELEMENTS),
@@ -376,7 +376,7 @@ impl FromStr for AUX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AUX {
             intensity_code: CodeRecord::new(&parts[0], &INTENSITY_PROXIMITY_CODES),
@@ -400,7 +400,7 @@ impl FromStr for AWX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
         Ok(AWX {
             atmospheric_condition_code: CodeRecord::new(
                 &parts[0],
@@ -422,7 +422,7 @@ impl FromStr for AXX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AXX {
             atmospheric_condition_code: CodeRecord::new(&parts[0], &ATMOSPHERIC_CONDITION_CODES),
@@ -445,7 +445,7 @@ impl FromStr for AYX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AYX {
             manual_atmospheric_condition_code: CodeRecord::new(
@@ -472,7 +472,7 @@ impl FromStr for AZX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(AZX {
             automated_atmospheric_condition_code: CodeRecord::new(
@@ -499,7 +499,7 @@ impl FromStr for MWX {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = get_parts(s);
+        let parts = get_parts(s)?;
 
         Ok(MWX {
             manual_atmospheric_condition_code: CodeRecord::new(
