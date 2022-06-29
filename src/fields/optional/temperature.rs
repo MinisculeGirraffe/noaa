@@ -44,7 +44,7 @@ impl FromStr for KAX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(KAX {
-            period_quantity: RecordValue::<f64>::new(&parts[0], "hours", 10f64),
+            period_quantity: RecordValue::<f64>::new(&parts[0], "h", 10f64),
             code: CodeRecord::new(&parts[1], &CODES),
             air_temperature: RecordValue::<f64>::new(&parts[2], "°C", 10f64),
             air_temperature_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
@@ -69,7 +69,7 @@ impl FromStr for KCX {
             code: CodeRecord::new(&parts[0], &CODES),
             condition_code: CodeRecord::new(&parts[1], &CONDITION_CODES),
             temperature: RecordValue::<f64>::new(&parts[2], "°C", 10f64),
-            date: RecordValue::<i32>::new(&parts[3], "", 1),
+            date: RecordValue::<i32>::new(&parts[3], "", 1), //todo
             temperature_quality_code: CodeRecord::new(&parts[4], &QUALITY_CODES),
         })
     }
@@ -81,7 +81,7 @@ pub struct KDX {
     period_quantity: Option<RecordValue<isize>>,
     code: CodeRecord,
     /// The total heating or cooling degree days for a given period, typically for the day or month, as reported by the station (ie,
-    /// not derived from other data fields). These data use the 65-degree Fahrenheit base as raditionally used for degree days.
+    /// not derived from other data fields). These data use the 65-degree Fahrenheit base as traditionally used for degree days.
     value: Option<RecordValue<isize>>,
     quality_code: CodeRecord,
 }
@@ -90,9 +90,9 @@ impl FromStr for KDX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(KDX {
-            period_quantity: RecordValue::<isize>::new(&parts[0], "hours", 1isize),
+            period_quantity: RecordValue::<isize>::new(&parts[0], "h", 1isize),
             code: CodeRecord::new(&parts[1], &HEATING_COOLING_DAY_CODES),
-            value: RecordValue::<isize>::new(&parts[2], "Heating or Cooling Degree Days", 1isize),
+            value: RecordValue::<isize>::new(&parts[2], "d", 1isize),
             quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
         })
     }
@@ -112,13 +112,13 @@ impl FromStr for KE1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(KE1 {
-            max_temp_32_f_days: RecordValue::<isize>::new(&parts[0], "Days", 1isize),
+            max_temp_32_f_days: RecordValue::<isize>::new(&parts[0], "d", 1isize),
             max_temp_32_f_days_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
-            max_temp_90_f_days: RecordValue::<isize>::new(&parts[2], "Days", 1isize),
+            max_temp_90_f_days: RecordValue::<isize>::new(&parts[2], "d", 1isize),
             max_temp_90_f_days_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
-            min_temp_32_f_days: RecordValue::<isize>::new(&parts[4], "Days", 1isize),
+            min_temp_32_f_days: RecordValue::<isize>::new(&parts[4], "d", 1isize),
             min_temp_32_f_days_quality_code: CodeRecord::new(&parts[5], &QUALITY_CODES),
-            min_temp_0_f_days: RecordValue::<isize>::new(&parts[6], "Days", 1isize),
+            min_temp_0_f_days: RecordValue::<isize>::new(&parts[6], "d", 1isize),
         })
     }
 }
@@ -153,7 +153,7 @@ impl FromStr for KGX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(KGX {
-            period_quantity: RecordValue::<isize>::new(&parts[0], "hours", 1isize),
+            period_quantity: RecordValue::<isize>::new(&parts[0], "h", 1isize),
             code: CodeRecord::new(&parts[1], &AVERAGE_DEW_POINT_AND_WET_BULB_TEMPERATURE_CODE),
             temp: RecordValue::<f64>::new(&parts[2], "°C", 10f64),
             derived_code: CodeRecord::new(&parts[3], &AVERAGE_DEW_POINT_AND_WET_BULB_TEMPERATURE_DERIVED_CODE),

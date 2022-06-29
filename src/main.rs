@@ -6,6 +6,7 @@ use std::io;
 use std::time::Instant;
 mod util;
 mod fields;
+mod units;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut rdr = csv::Reader::from_reader(io::stdin());

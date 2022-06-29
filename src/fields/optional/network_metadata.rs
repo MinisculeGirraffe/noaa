@@ -16,7 +16,7 @@ impl FromStr for CO1 {
         let parts = get_parts(s)?;
         Ok(CO1 {
             climate_division: RecordValue::<i32>::new(&parts[0], "", 1),
-            time_conversion: RecordValue::<i32>::new(&parts[1], "hours", 1),
+            time_conversion: RecordValue::<i32>::new(&parts[1], "h", 1),
         })
     }
 }
@@ -38,7 +38,7 @@ impl FromStr for COX {
         };
         Ok(COX {
             element_id,
-            time_offset: RecordValue::<f64>::new(&parts[1], "hours", 10f64),
+            time_offset: RecordValue::<f64>::new(&parts[1], "h", 10f64),
         })
     }
 }
@@ -72,7 +72,7 @@ impl FromStr for CTX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CTX {
-            air_temp: RecordValue::<f64>::new(&parts[0], "C", 10f64),
+            air_temp: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             air_temp_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             air_temp_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
         })
@@ -95,10 +95,10 @@ impl FromStr for CUX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CUX {
-            air_temp: RecordValue::<f64>::new(&parts[0], "C", 10f64),
+            air_temp: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             air_temp_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             air_temp_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
-            air_temp_std_dev: RecordValue::<f64>::new(&parts[3], "C", 10f64),
+            air_temp_std_dev: RecordValue::<f64>::new(&parts[3], "°C", 10f64),
             air_temp_std_dev_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             air_temp_std_dev_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
         })
@@ -127,13 +127,13 @@ impl FromStr for CVX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CVX {
-            air_temp_min: RecordValue::<f64>::new(&parts[0], "C", 10f64),
+            air_temp_min: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             air_temp_min_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             air_temp_min_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
             air_temp_min_time: parse_str(&parts[3]),
             air_temp_min_time_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             air_temp_min_time_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
-            air_temp_max: RecordValue::<f64>::new(&parts[6], "C", 10f64),
+            air_temp_max: RecordValue::<f64>::new(&parts[6], "°C", 10f64),
             air_temp_max_quality_code: CodeRecord::new(&parts[7], &DL_QUALITY_CODES),
             air_temp_max_quality_flag: CodeRecord::new(&parts[8], &DL_QUALITY_FLAG),
             air_temp_max_time: parse_str(&parts[9]),
@@ -192,13 +192,13 @@ impl FromStr for CXX {
             precipitation_total_hourly: RecordValue::<f64>::new(&parts[0], "mm", 10f64),
             precipitation_total_hourly_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             precipitation_total_hourly_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
-            avg_frequency: RecordValue::<f64>::new(&parts[3], "", 10f64),
+            avg_frequency: RecordValue::<f64>::new(&parts[3], "Hz", 10f64),
             avg_frequency_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             avg_frequency_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
-            min_frequency: RecordValue::<f64>::new(&parts[6], "", 10f64),
+            min_frequency: RecordValue::<f64>::new(&parts[6], "Hz", 10f64),
             min_frequency_quality_code: CodeRecord::new(&parts[7], &DL_QUALITY_CODES),
             min_frequency_quality_flag: CodeRecord::new(&parts[8], &DL_QUALITY_FLAG),
-            max_frequency: RecordValue::<f64>::new(&parts[9], "", 10f64),
+            max_frequency: RecordValue::<f64>::new(&parts[9], "Hz", 10f64),
             max_frequency_quality_code: CodeRecord::new(&parts[10], &DL_QUALITY_CODES),
             max_frequency_quality_flag: CodeRecord::new(&parts[11], &DL_QUALITY_FLAG),
         })

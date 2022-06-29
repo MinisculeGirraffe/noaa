@@ -166,7 +166,7 @@ impl FromStr for MK1 {
             max_sea_level_pressure_month_date_time: RecordValue::<isize>::new(&parts[1], "", 1),
             max_sea_level_pressure_month_quality_code: CodeRecord::new(&parts[2], &QUALITY_CODES),
             min_sea_level_pressure_month: RecordValue::<f64>::new(&parts[3], "hPa", 10f64),
-            min_sea_level_pressure_month_date_time: RecordValue::<isize>::new(&parts[4], "", 1),
+            min_sea_level_pressure_month_date_time: RecordValue::<isize>::new(&parts[4], "", 1), //todo
             min_sea_level_pressure_month_quality_code: CodeRecord::new(&parts[5], &QUALITY_CODES),
         })
     }

@@ -66,7 +66,7 @@ impl FromStr for AAX {
         let parts = get_parts(s)?;
 
         Ok(AAX {
-            period_quantity: RecordValue::new(&parts[0], "Hours", 1),
+            period_quantity: RecordValue::new(&parts[0], "h", 1),
             depth_dimension: RecordValue::new(&parts[1], "mm", 10f64),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
@@ -179,13 +179,13 @@ impl FromStr for AE1 {
         let parts = get_parts(s)?;
 
         Ok(AE1 {
-            days_01: RecordValue::new(&parts[0], "Days", 1),
+            days_01: RecordValue::new(&parts[0], "d", 1),
             days_01_quality: CodeRecord::new(&parts[1], &QUALITY_CODES),
-            days_10: RecordValue::new(&parts[2], "Days", 1),
+            days_10: RecordValue::new(&parts[2], "d", 1),
             days_10_quality: CodeRecord::new(&parts[3], &QUALITY_CODES),
-            days_50: RecordValue::new(&parts[4], "Days", 1),
+            days_50: RecordValue::new(&parts[4], "d", 1),
             days_50_quality: CodeRecord::new(&parts[5], &QUALITY_CODES),
-            days_100: RecordValue::new(&parts[6], "Days", 1),
+            days_100: RecordValue::new(&parts[6], "d", 1),
             days_100_quality: CodeRecord::new(&parts[7], &QUALITY_CODES),
         })
     }
@@ -225,7 +225,7 @@ impl FromStr for AHX {
         let parts = get_parts(s)?;
 
         Ok(AHX {
-            period_quantity: RecordValue::new(&parts[0], "minutes", 1),
+            period_quantity: RecordValue::new(&parts[0], "min", 1),
             depth_dimension: RecordValue::new(&parts[1], "mm", 10f64),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             end_date_time: parse_null(&parts[3]),
@@ -249,7 +249,7 @@ impl FromStr for AIX {
         let parts = get_parts(s)?;
 
         Ok(AIX {
-            period_quantity: RecordValue::new(&parts[0], "minutes", 1),
+            period_quantity: RecordValue::new(&parts[0], "min", 1),
             depth_dimension: RecordValue::new(&parts[1], "mm", 10f64),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             end_date_time: parse_null(&parts[3]),
@@ -321,7 +321,7 @@ impl FromStr for ALX {
         let parts = get_parts(s)?;
 
         Ok(ALX {
-            period_quantity: RecordValue::new(&parts[0], "hours", 1),
+            period_quantity: RecordValue::new(&parts[0], "h", 1),
             depth_dimension: RecordValue::new(&parts[1], "cm", 1),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
@@ -370,7 +370,7 @@ impl FromStr for AN1 {
         let parts = get_parts(s)?;
 
         Ok(AN1 {
-            period_quantity: RecordValue::new(&parts[0], "hours", 1),
+            period_quantity: RecordValue::new(&parts[0], "h", 1),
             depth_dimension: RecordValue::new(&parts[1], "cm", 10f64),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
@@ -392,7 +392,7 @@ impl FromStr for AOX {
         let parts = get_parts(s)?;
 
         Ok(AOX {
-            period_quantity: RecordValue::new(&parts[0], "minutes", 1),
+            period_quantity: RecordValue::new(&parts[0], "min", 1),
             depth_dimension: RecordValue::new(&parts[1], "mm", 10f64),
             condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),

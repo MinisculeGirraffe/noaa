@@ -427,7 +427,7 @@ impl FromStr for AXX {
         Ok(AXX {
             atmospheric_condition_code: CodeRecord::new(&parts[0], &ATMOSPHERIC_CONDITION_CODES),
             atmospheric_condition_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
-            period_quantity: RecordValue::new(&parts[2], "hours", 1),
+            period_quantity: RecordValue::new(&parts[2], "h", 1),
             period_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
         })
     }
@@ -453,7 +453,7 @@ impl FromStr for AYX {
                 &MANUAL_ATMOSPHERIC_CONDITION_CODES,
             ),
             manual_atmospheric_condition_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
-            period_quantity: RecordValue::new(&parts[2], "hours", 1),
+            period_quantity: RecordValue::new(&parts[2], "h", 1),
             period_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
         })
     }
@@ -483,7 +483,7 @@ impl FromStr for AZX {
                 &parts[1],
                 &QUALITY_CODES,
             ),
-            period_quantity: RecordValue::new(&parts[2], "hours", 1),
+            period_quantity: RecordValue::new(&parts[2], "h", 1),
             period_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
         })
     }

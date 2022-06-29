@@ -84,8 +84,8 @@ impl FromStr for IA2 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(IA2 {
-            min_temp_period: RecordValue::<f64>::new(&parts[0], "hours", 1f64),
-            min_temp: RecordValue::<f64>::new(&parts[1], "C", 10f64),
+            min_temp_period: RecordValue::<f64>::new(&parts[0], "h", 1f64),
+            min_temp: RecordValue::<f64>::new(&parts[1], "°C", 10f64),
             min_temp_quality_code: CodeRecord::new(&parts[2], &QUALITY_CODES),
         })
     }
@@ -120,13 +120,13 @@ impl FromStr for IB1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(IB1 {
-            surftemp: RecordValue::<f64>::new(&parts[0], "C", 10f64),
+            surftemp: RecordValue::<f64>::new(&parts[0], "°C", 10f64),
             surftemp_qc: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             surftemp_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
-            surftemp_min: RecordValue::<f64>::new(&parts[3], "C", 10f64),
+            surftemp_min: RecordValue::<f64>::new(&parts[3], "°C", 10f64),
             surftemp_min_qc: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             surftemp_min_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
-            surftemp_max: RecordValue::<f64>::new(&parts[6], "C", 10f64),
+            surftemp_max: RecordValue::<f64>::new(&parts[6], "°C", 10f64),
             surftemp_max_qc: CodeRecord::new(&parts[7], &DL_QUALITY_CODES),
             surftemp_max_flag: CodeRecord::new(&parts[8], &DL_QUALITY_FLAG),
         })
@@ -155,17 +155,17 @@ impl FromStr for IC1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(IC1 {
-            time_period: RecordValue::<isize>::new(&parts[0], "hours", 1isize),
-            wind_movement: RecordValue::<isize>::new(&parts[1], "Statute Miles", 1isize),
+            time_period: RecordValue::<isize>::new(&parts[0], "h", 1isize),
+            wind_movement: RecordValue::<isize>::new(&parts[1], "mi", 1isize),
             wind_movement_condition_code: CodeRecord::new(&parts[2], &CONDITION_CODES),
             wind_movement_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
-            evaporation_data: RecordValue::<f64>::new(&parts[4], "inches", 1f64),
+            evaporation_data: RecordValue::<f64>::new(&parts[4], "in", 1f64),
             evaporation_condition_code: CodeRecord::new(&parts[5], &CONDITION_CODES),
             evaporation_quality_code: CodeRecord::new(&parts[6], &QUALITY_CODES),
-            max_pan_water_temp: RecordValue::<f64>::new(&parts[7], "C", 10f64),
+            max_pan_water_temp: RecordValue::<f64>::new(&parts[7], "°C", 10f64),
             max_pan_water_temp_condition_code: CodeRecord::new(&parts[8], &CONDITION_CODES),
             max_pan_water_temp_quality_code: CodeRecord::new(&parts[9], &QUALITY_CODES),
-            min_pan_water_temp: RecordValue::<f64>::new(&parts[10], "C", 10f64),
+            min_pan_water_temp: RecordValue::<f64>::new(&parts[10], "°C", 10f64),
             min_pan_water_temp_condition_code: CodeRecord::new(&parts[11], &CONDITION_CODES),
             min_pan_water_temp_quality_code: CodeRecord::new(&parts[12], &QUALITY_CODES),
         })

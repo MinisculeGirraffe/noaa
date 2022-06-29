@@ -9,22 +9,6 @@ use serde_with::DeserializeFromStr;
 
 use super::codes::{CodeRecord, BOOL_CODES, QUALITY_CODES};
 
-#[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
-pub struct GeoPhysicalPoint(Option<f64>);
-
-impl FromStr for GeoPhysicalPoint {
-    type Err = ParseFloatError;
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        //parse string as float
-        if is_null(s) {
-            Ok(GeoPhysicalPoint(None))
-        } else {
-            let f = s.parse::<f64>()?;
-            Ok(GeoPhysicalPoint(Some(f)))
-        }
-    }
-}
-
 pub static WIND_OBSERVATION_TYPE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
     "A" => "Abridged Beaufort",
     "B" => "Beaufort",

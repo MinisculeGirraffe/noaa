@@ -168,7 +168,7 @@ impl FromStr for RHX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(RHX {
-            period_quantity: RecordValue::<f64>::new(&parts[0], "hours", 1f64),
+            period_quantity: RecordValue::<f64>::new(&parts[0], "h", 1f64),
             code: CodeRecord::new(&parts[1], &RH_CODES),
             percentage: RecordValue::<f64>::new(&parts[2], "%", 1f64),
             derrived_code: CodeRecord::new(&parts[3], &DERIVE_CODES),

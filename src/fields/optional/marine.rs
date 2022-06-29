@@ -7,23 +7,23 @@ use serde_with::DeserializeFromStr;
 use std::str::FromStr;
 
 pub static METHOD_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "M" => "Manual",
- "I" => "Instrumental",
- "9" => "Missing",
+    "M" => "Manual",
+    "I" => "Instrumental",
+    "9" => "Missing",
 };
 
 pub static SEA_STATE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "00" => "Calm, glassy - wave height = 0 meters",
- "01" => "Calm, rippled - wave height = 0-0.1 meters",
- "02" => "Smooth, wavelets - wave height = 0.1-0.5 meters",
- "03" => "Slight, wave height = 0.5-1.25 meters",
- "04" => "Moderate - wave height 1.25-2.5 meters",
- "05" => "Rough - wave height = 2.5-4.0 meters",
- "06" => "Very rough - wave height = 4.0-6.0 meters",
- "07" => "High - wave height = 6.0-9.0 meters",
- "08" => "Very high - wave height 9.0-14.0 meters",
- "09" => "Phenomenal - wave height = over 14.0 meters",
- "99" => "Missing",
+    "00" => "Calm, glassy - wave height = 0 meters",
+    "01" => "Calm, rippled - wave height = 0-0.1 meters",
+    "02" => "Smooth, wavelets - wave height = 0.1-0.5 meters",
+    "03" => "Slight, wave height = 0.5-1.25 meters",
+    "04" => "Moderate - wave height 1.25-2.5 meters",
+    "05" => "Rough - wave height = 2.5-4.0 meters",
+    "06" => "Very rough - wave height = 4.0-6.0 meters",
+    "07" => "High - wave height = 6.0-9.0 meters",
+    "08" => "Very high - wave height 9.0-14.0 meters",
+    "09" => "Phenomenal - wave height = over 14.0 meters",
+    "99" => "Missing",
 };
 
 pub static ICE_ACCRETION_SOURCE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
@@ -36,91 +36,91 @@ pub static ICE_ACCRETION_SOURCE_CODES: phf::Map<&'static str, &'static str> = ph
 };
 
 pub static ICE_ACCRETION_TENDENCY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "0" => "Ice not building up",
- "1" => "Ice building up slowly",
- "2" => "Ice building up rapidly",
- "3" => "Ice melting or breaking up slowly",
- "4" => "Ice melting or breaking up rapidly",
- "9" => "Missing",
+    "0" => "Ice not building up",
+    "1" => "Ice building up slowly",
+    "2" => "Ice building up rapidly",
+    "3" => "Ice melting or breaking up slowly",
+    "4" => "Ice melting or breaking up rapidly",
+    "9" => "Missing",
 };
 
 pub static EDGE_BEARING_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "00" => "Ship in shore or flaw lead",
- "01" => "Principal ice edge towards NE",
- "02" => "Principal ice edge towards E",
- "03" => "Principal ice edge towards SE",
- "04" => "Principal ice edge towards S",
- "05" => "Principal ice edge towards SW",
- "06" => "Principal ice edge towards W",
- "07" => "Principal ice edge towards NW",
- "08" => "Principal ice edge towards N",
- "09" => "Not determined (ship in ice)",
- "10" => "Unable to report, because of darkness, lack of visibility or because only ice of land origin is visible.",
- "99" => "Missing",
+    "00" => "Ship in shore or flaw lead",
+    "01" => "Principal ice edge towards NE",
+    "02" => "Principal ice edge towards E",
+    "03" => "Principal ice edge towards SE",
+    "04" => "Principal ice edge towards S",
+    "05" => "Principal ice edge towards SW",
+    "06" => "Principal ice edge towards W",
+    "07" => "Principal ice edge towards NW",
+    "08" => "Principal ice edge towards N",
+    "09" => "Not determined (ship in ice)",
+    "10" => "Unable to report, because of darkness, lack of visibility or because only ice of land origin is visible.",
+    "99" => "Missing",
 };
 
 pub static EDGE_ORIENTATION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "00" => "Orientation of ice edge impossible to estimate--ship outside the ice",
- "01" => "Ice edge lying in a direction NE to SW with ice situated to the NW",
- "02" => "Ice edge lying in a direction E to W with ice situated to the N",
- "03" => "Ice edge lying in a direction SE to NW with ice situated to the NE",
- "04" => "Ice edge lying in a direction S to N with ice situated to the E",
- "05" => "Ice edge lying in a direction SW to NE with ice situated to the SE",
- "06" => "Ice edge lying in a direction W to E with ice situated to the S",
- "07" => "Ice edge lying in a direction NW to SE with ice situated to the SW",
- "08" => "Ice edge lying in a direction N to S with ice situated to the W",
- "09" => "Orientation of ice edge impossible to estimate--ship inside the ice",
- "99" => "Missing",
+    "00" => "Orientation of ice edge impossible to estimate--ship outside the ice",
+    "01" => "Ice edge lying in a direction NE to SW with ice situated to the NW",
+    "02" => "Ice edge lying in a direction E to W with ice situated to the N",
+    "03" => "Ice edge lying in a direction SE to NW with ice situated to the NE",
+    "04" => "Ice edge lying in a direction S to N with ice situated to the E",
+    "05" => "Ice edge lying in a direction SW to NE with ice situated to the SE",
+    "06" => "Ice edge lying in a direction W to E with ice situated to the S",
+    "07" => "Ice edge lying in a direction NW to SE with ice situated to the SW",
+    "08" => "Ice edge lying in a direction N to S with ice situated to the W",
+    "09" => "Orientation of ice edge impossible to estimate--ship inside the ice",
+    "99" => "Missing",
 };
 
 pub static NON_UNIFORM_CONCENTRATION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "06" => "Strips and patches of pack ice with open water between",
- "07" => "Strips and patches of close or very close pack ice with areas of lesser concentration between",
- "08" => "Fast ice with open water, very open or open pack ice to seaward of the ice boundary",
- "09" => "Fast ice with close or very close pack ice to seaward of the ice boundary",
- "99" => "Unable to report, because of darkness, lack of visibility, or because ship is more than 0.5 nautical mile away from ice edge",
+    "06" => "Strips and patches of pack ice with open water between",
+    "07" => "Strips and patches of close or very close pack ice with areas of lesser concentration between",
+    "08" => "Fast ice with open water, very open or open pack ice to seaward of the ice boundary",
+    "09" => "Fast ice with close or very close pack ice to seaward of the ice boundary",
+    "99" => "Unable to report, because of darkness, lack of visibility, or because ship is more than 0.5 nautical mile away from ice edge",
 };
 
 pub static SHIP_RELATIVE_POSITION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "0" => "Ship in open water with floating ice in sight",
- "1" => "In open lead or fast ice",
- "2" => "In ice or within 0.5 nautical miles of ice edge",
- "9" => "Missing",
+    "0" => "Ship in open water with floating ice in sight",
+    "1" => "In open lead or fast ice",
+    "2" => "In ice or within 0.5 nautical miles of ice edge",
+    "9" => "Missing",
 };
 
 pub static SHIP_PENETRABILITY_CODES: phf::Map<&'static str, &'static str> = phf_map! {
-"1" => "Easy",
-"2" => "Difficult",
-"3" => "Beset (Surrounded so closely by sea ice that steering control is lost.)",
-"9" => "Missing",
+    "1" => "Easy",
+    "2" => "Difficult",
+    "3" => "Beset (Surrounded so closely by sea ice that steering control is lost.)",
+    "9" => "Missing",
 };
 
 pub static FORMATION_TYPE_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "00" => "No ice (0 may be used to report ice blink and then a direction must be reported)",
- "01" => "New ice",
- "02" => "Fast ice",
- "03" => "Pack-ice/drift-ice",
- "04" => "Packed (compact) slush or sludge",
- "05" => "Shore lead",
- "06" => "Heavy fast ice",
- "07" => "Heavy pack-ice/drift-ice",
- "08" => "Hummocked ice",
- "09" => "Icebergs-icebergs can be reported in plain language",
- "99" => "Missing",
+    "00" => "No ice (0 may be used to report ice blink and then a direction must be reported)",
+    "01" => "New ice",
+    "02" => "Fast ice",
+    "03" => "Pack-ice/drift-ice",
+    "04" => "Packed (compact) slush or sludge",
+    "05" => "Shore lead",
+    "06" => "Heavy fast ice",
+    "07" => "Heavy pack-ice/drift-ice",
+    "08" => "Hummocked ice",
+    "09" => "Icebergs-icebergs can be reported in plain language",
+    "99" => "Missing",
 };
 
 pub static NAVIGATION_EFFECT_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "00" =>  "Navigation unobstructed",
- "01" =>  "Navigation unobstructed for steamers, difficult for sailing ships",
- "02" =>  "Navigation difficult for low-powered steamers, closed to sailing ships",
- "03" =>  "Navigation possible only for powerful steamers",
- "04" =>  "Navigation possible only for steamers constructed to withstand ice pressure",
- "05" =>  "Navigation possible with the assistance of ice-breakers",
- "06" =>  "Channel open in the solid ice",
- "07" =>  "Navigation temporarily closed",
- "08" =>  "Navigation closed",
- "09" =>  "Navigation conditions unknown, e.g., owing to bad weather",
- "99" =>  "Missing",
+    "00" =>  "Navigation unobstructed",
+    "01" =>  "Navigation unobstructed for steamers, difficult for sailing ships",
+    "02" =>  "Navigation difficult for low-powered steamers, closed to sailing ships",
+    "03" =>  "Navigation possible only for powerful steamers",
+    "04" =>  "Navigation possible only for steamers constructed to withstand ice pressure",
+    "05" =>  "Navigation possible with the assistance of ice-breakers",
+    "06" =>  "Channel open in the solid ice",
+    "07" =>  "Navigation temporarily closed",
+    "08" =>  "Navigation closed",
+    "09" =>  "Navigation conditions unknown, e.g., owing to bad weather",
+    "99" =>  "Missing",
 };
 
 pub static ICE_TREND_CODES: phf::Map<&'static str, &'static str> = phf_map! {
@@ -134,25 +134,24 @@ pub static ICE_TREND_CODES: phf::Map<&'static str, &'static str> = phf_map! {
 };
 
 pub static DEVELOPMENT_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "00" => "New ice only (frazil ice, grease ice, slush, slugs)",
- "01" => "Nilas or ice rind, less than 10 cm thick",
- "02" => "Young ice (grey ice, grey-white ice), 10 - 30 cm thick",
- "03" => "Predominantly new and/or young ice with some first year ice",
- "04" => "Predominantly thin first year ice with some new and/or young ice",
- "05" => "All thin first year ice (30 - 70 cm thick)",
- "06" => "Predominantly medium first year ice (70 - 120 cm thick) and thick first year ice (> 120 cm thick) with some thinner (younger) first year ice",
- "07" => "All medium and thick first year ice",
- "08" => "Predominantly medium and thick first year ice with some old ice (usually more than 2 m thick)",
- "09" => "Predominantly old ice",
- "99" => "Unable to report, because of darkness, lack of visibility or because only ice of land origin is visible or because ship is more than .5 NM away from ice",
-
+    "00" => "New ice only (frazil ice, grease ice, slush, slugs)",
+    "01" => "Nilas or ice rind, less than 10 cm thick",
+    "02" => "Young ice (grey ice, grey-white ice), 10 - 30 cm thick",
+    "03" => "Predominantly new and/or young ice with some first year ice",
+    "04" => "Predominantly thin first year ice with some new and/or young ice",
+    "05" => "All thin first year ice (30 - 70 cm thick)",
+    "06" => "Predominantly medium first year ice (70 - 120 cm thick) and thick first year ice (> 120 cm thick) with some thinner (younger) first year ice",
+    "07" => "All medium and thick first year ice",
+    "08" => "Predominantly medium and thick first year ice with some old ice (usually more than 2 m thick)",
+    "09" => "Predominantly old ice",
+    "99" => "Unable to report, because of darkness, lack of visibility or because only ice of land origin is visible or because ship is more than .5 NM away from ice",
 };
 
 pub static GROWLER_BERGY_BIT_PRESENCE_CODE: phf::Map<&'static str, &'static str> = phf_map! {
- "0" => "Not present",
- "1" => "Present",
- "2" => "Unknown",
- "9" => "Missing",
+    "0" => "Not present",
+    "1" => "Present",
+    "2" => "Unknown",
+    "9" => "Missing",
 };
 
 pub static ICE_PHENOMENA_CODES: phf::Map<&'static str, &'static str> = phf_map! {
@@ -214,18 +213,18 @@ pub static ICE_PHENOMENA_CODES: phf::Map<&'static str, &'static str> = phf_map! 
 };
 
 pub static UNDER_ICE_SLUSH_CONDITION_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "0" => "No slush ice",
- "1" => "Slush ice to approximately 1/3 of depth of the river, lake or reservoir",
- "2" => "Slush ice from 1/3 to 2/3 of depth of the river, lake or reservoir",
- "3" => "Slush ice to depth of the river, lake or reservoir greater than 2/3.",
- "9" => "Missing",
+    "0" => "No slush ice",
+    "1" => "Slush ice to approximately 1/3 of depth of the river, lake or reservoir",
+    "2" => "Slush ice from 1/3 to 2/3 of depth of the river, lake or reservoir",
+    "3" => "Slush ice to depth of the river, lake or reservoir greater than 2/3.",
+    "9" => "Missing",
 };
 pub static WATER_LEVEL_CODES: phf::Map<&'static str, &'static str> = phf_map! {
- "B" => "much below normal",
- "H" => "high but not overflowing",
- "N" => "normal",
- "O" => "banks overflowing",
- "9" => "missing",
+    "B" => "much below normal",
+    "H" => "high but not overflowing",
+    "N" => "normal",
+    "O" => "banks overflowing",
+    "9" => "missing",
 };
 
 #[derive(DeserializeFromStr, Serialize, Debug, PartialEq)]
@@ -244,8 +243,8 @@ impl FromStr for UA1 {
 
         Ok(UA1 {
             method_code: CodeRecord::new(&parts[0], &METHOD_CODES),
-            wave_period_quantity: RecordValue::<isize>::new(&parts[1], "seconds", 1isize),
-            wave_height_dimension: RecordValue::<f64>::new(&parts[2], "meters", 10f64),
+            wave_period_quantity: RecordValue::<isize>::new(&parts[1], "s", 1isize),
+            wave_height_dimension: RecordValue::<f64>::new(&parts[2], "m", 10f64),
             wave_quality_code: CodeRecord::new(&parts[4], &QUALITY_CODES),
             sea_state_code: CodeRecord::new(&parts[5], &SEA_STATE_CODES),
             sea_state_quality_code: CodeRecord::new(&parts[6], &QUALITY_CODES),
@@ -266,9 +265,9 @@ impl FromStr for UGX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(UGX {
-            period_quantity: RecordValue::<isize>::new(&parts[0], "seconds", 1isize),
-            height_dimension: RecordValue::<f64>::new(&parts[1], "meters", 10f64),
-            direction_angle: RecordValue::<isize>::new(&parts[2], "degrees", 1isize),
+            period_quantity: RecordValue::<isize>::new(&parts[0], "s", 1isize),
+            height_dimension: RecordValue::<f64>::new(&parts[1], "m", 10f64),
+            direction_angle: RecordValue::<isize>::new(&parts[2], "°", 1isize),
             quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
         })
     }
@@ -316,7 +315,7 @@ impl FromStr for WD1 {
 
         Ok(WD1 {
             edge_bearing_code: CodeRecord::new(&parts[0], &EDGE_BEARING_CODES),
-            uniform_concentration_rate: RecordValue::<f64>::new(&parts[1], "percent", 1f64),
+            uniform_concentration_rate: RecordValue::<f64>::new(&parts[1], "%", 1f64),
             non_uniform_concentration_code: CodeRecord::new(
                 &parts[2],
                 &NON_UNIFORM_CONCENTRATION_CODES,
@@ -329,8 +328,8 @@ impl FromStr for WD1 {
                 &parts[7],
                 &GROWLER_BERGY_BIT_PRESENCE_CODE,
             ),
-            growler_bergy_bit_quantity: RecordValue::<isize>::new(&parts[8], "bits", 1isize),
-            iceberg_quantity: RecordValue::<isize>::new(&parts[9], "icebergs", 1isize),
+            growler_bergy_bit_quantity: RecordValue::<isize>::new(&parts[8], "", 1isize),
+            iceberg_quantity: RecordValue::<isize>::new(&parts[9], "", 1isize),
             quality_code: CodeRecord::new(&parts[10], &QUALITY_CODES),
         })
     }
@@ -351,7 +350,7 @@ impl FromStr for WG1 {
 
         Ok(WG1 {
             edge_bearing_code: CodeRecord::new(&parts[0], &EDGE_BEARING_CODES),
-            edge_distance_dimension: RecordValue::<f64>::new(&parts[1], "kilometers", 10f64),
+            edge_distance_dimension: RecordValue::<f64>::new(&parts[1], "km", 10f64),
             edge_orientation_code: CodeRecord::new(&parts[2], &EDGE_ORIENTATION_CODES),
             formation_type_code: CodeRecord::new(&parts[3], &FORMATION_TYPE_CODES),
             navigation_effect_code: CodeRecord::new(&parts[4], &NAVIGATION_EFFECT_CODES),
@@ -376,7 +375,7 @@ impl FromStr for WJ1 {
 
         Ok(WJ1 {
             ice_thickness: RecordValue::<f64>::new(&parts[0], "cm", 1f64),
-            discharge_rate: RecordValue::<f64>::new(&parts[1], "cm^3/s", 1f64),
+            discharge_rate: RecordValue::<f64>::new(&parts[1], "m^3/s", 1f64),
             primary_ice_phenomenon: CodeRecord::new(&parts[2], &ICE_PHENOMENA_CODES),
             secondary_ice_phenomenon: CodeRecord::new(&parts[3], &ICE_PHENOMENA_CODES),
             stage_height: RecordValue::<f64>::new(&parts[4], "cm", 1f64),

@@ -26,7 +26,7 @@ impl FromStr for CBX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CBX {
-            period_quantity: RecordValue::<isize>::new(&parts[0], "Minutes", 1),
+            period_quantity: RecordValue::<isize>::new(&parts[0], "min", 1),
             liquid_depth: RecordValue::<f64>::new(&parts[1], "mm", 10f64),
             quality_code: CodeRecord::new(&parts[2], &DL_QUALITY_CODES),
             quality_flag: CodeRecord::new(&parts[3], &DL_QUALITY_FLAG),
@@ -47,7 +47,7 @@ impl FromStr for CFX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CFX {
-            fan_speed: RecordValue::<i32>::new(&parts[0], "RPM", 1),
+            fan_speed: RecordValue::<i32>::new(&parts[0], "r/s", 1),
             quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
         })
@@ -87,7 +87,7 @@ impl FromStr for CHX {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CHX {
-            period_quantity: RecordValue::<u8>::new(&parts[0], "Minutes", 1),
+            period_quantity: RecordValue::<u8>::new(&parts[0], "min", 1),
             avg_air_temp: RecordValue::<f64>::new(&parts[1], "°C", 10f64),
             avg_air_temp_quality_code: CodeRecord::new(&parts[2], &DL_QUALITY_CODES),
             avg_air_temp_quality_flag: CodeRecord::new(&parts[3], &DL_QUALITY_FLAG),
@@ -187,7 +187,7 @@ impl FromStr for CN2 {
             tinlet_max_temp: RecordValue::<f64>::new(&parts[3], "°C", 10f64),
             tinlet_max_temp_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             tinlet_max_temp_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
-            door_open_time: RecordValue::<i32>::new(&parts[6], "minutes", 1),
+            door_open_time: RecordValue::<i32>::new(&parts[6], "min", 1),
             door_open_time_quality_code: CodeRecord::new(&parts[7], &DL_QUALITY_CODES),
             door_open_time_quality_flag: CodeRecord::new(&parts[8], &DL_QUALITY_FLAG),
         })
@@ -208,7 +208,7 @@ impl FromStr for CN3 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(CN3 {
-            ref_res_avg: RecordValue::<f64>::new(&parts[0], "ohms", 10f64),
+            ref_res_avg: RecordValue::<f64>::new(&parts[0], "Ω", 10f64),
             ref_res_avg_quality_code: CodeRecord::new(&parts[1], &DL_QUALITY_CODES),
             ref_res_avg_quality_flag: CodeRecord::new(&parts[2], &DL_QUALITY_FLAG),
             d_signature: RecordValue::<f64>::new(&parts[3], "", 10f64),
@@ -249,9 +249,9 @@ impl FromStr for CN4 {
             door_flag: CodeRecord::new(&message, &DL_QUALITY_CODES), //placeholder quality code              
             door_flag_quality_code: CodeRecord::new(&parts[4], &DL_QUALITY_CODES),
             door_flag_quality_flag: CodeRecord::new(&parts[5], &DL_QUALITY_FLAG),
-            fort_trans: RecordValue::<f64>::new(&parts[6], "watts", 10f64),
+            fort_trans: RecordValue::<f64>::new(&parts[6], "W", 10f64),
             fort_trans_quality_code: CodeRecord::new(&parts[7], &DL_QUALITY_CODES),
-            refl_trans: RecordValue::<f64>::new(&parts[8], "watts", 10f64),
+            refl_trans: RecordValue::<f64>::new(&parts[8], "W", 10f64),
             refl_trans_quality_code: CodeRecord::new(&parts[9], &DL_QUALITY_CODES),
             refl_trans_quality_flag: CodeRecord::new(&parts[10], &DL_QUALITY_FLAG),
         })

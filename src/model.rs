@@ -1,5 +1,5 @@
 use crate::fields::mandatory::{
-    Ceiling, GeoPhysicalPoint, SeaLevelPressure, Temperature, Visibility, Wind,
+    Ceiling,  SeaLevelPressure, Temperature, Visibility, Wind,
 };
 use crate::fields::optional::climate_reference_network::*;
 use crate::fields::optional::cloud_solar::*;

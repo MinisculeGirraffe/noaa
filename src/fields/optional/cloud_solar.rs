@@ -445,7 +445,7 @@ impl FromStr for GGX {
         Ok(GGX {
             coverage_code: CodeRecord::new(&parts[0], &COVERAGE_CODES),
             coverage_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
-            top_height: RecordValue::new(&parts[2], "meters", 1),
+            top_height: RecordValue::new(&parts[2], "Meters", 1),
             top_height_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
             type_code: CodeRecord::new(&parts[4], &CLOUD_TYPE_CODES),
             type_quality_code: CodeRecord::new(&parts[5], &QUALITY_CODES),
@@ -502,7 +502,7 @@ impl FromStr for GJ1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GJ1 {
-            sunshine_duration: RecordValue::new(&parts[0], "minutes", 1),
+            sunshine_duration: RecordValue::new(&parts[0], "min", 1),
             sunshine_duration_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
         })
     }
@@ -535,7 +535,7 @@ impl FromStr for GL1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GL1 {
-            sunshine_duration: RecordValue::new(&parts[0], "minutes", 1),
+            sunshine_duration: RecordValue::new(&parts[0], "min", 1),
             sunshine_duration_quality_code: CodeRecord::new(&parts[1], &QUALITY_CODES),
         })
     }
@@ -563,7 +563,7 @@ impl FromStr for GM1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GM1 {
-            solar_irradiance_period: RecordValue::new(&parts[0], "minutes", 1),
+            solar_irradiance_period: RecordValue::new(&parts[0], "min", 1),
             global_irradiance: RecordValue::new(&parts[1], "W/m^2", 1),
             global_irradiance_data_flag: CodeRecord::new(&parts[2], &DATA_FLAG_CODES),
             global_irradiance_quality_code: CodeRecord::new(&parts[3], &QUALITY_CODES),
@@ -599,7 +599,7 @@ impl FromStr for GN1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GN1 {
-            solar_rad_period: RecordValue::new(&parts[0], "minutes", 1),
+            solar_rad_period: RecordValue::new(&parts[0], "min", 1),
             upwell_solar_rad: RecordValue::new(&parts[1], "W/m^2", 1),
             upwell_solar_rad_quality_code: CodeRecord::new(&parts[2], &QUALITY_CODES),
             downwell_thermal_if_rad: RecordValue::new(&parts[3], "W/m^2", 1),
@@ -608,7 +608,7 @@ impl FromStr for GN1 {
             upwell_thermal_if_rad_quality_code: CodeRecord::new(&parts[6], &QUALITY_CODES),
             photosynth_active_rad: RecordValue::new(&parts[7], "W/m^2", 1),
             photosynth_active_rad_quality_code: CodeRecord::new(&parts[8], &QUALITY_CODES),
-            solar_zenith_angle: RecordValue::new(&parts[9], "degrees", 1),
+            solar_zenith_angle: RecordValue::new(&parts[9], "°", 1),
             solar_zenith_angle_quality_code: CodeRecord::new(&parts[10], &QUALITY_CODES),
         })
     }
@@ -630,7 +630,7 @@ impl FromStr for GO1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GO1 {
-            net_solar_rad_period: RecordValue::new(&parts[0], "minutes", 1),
+            net_solar_rad_period: RecordValue::new(&parts[0], "min", 1),
             net_solar_rad: RecordValue::new(&parts[1], "W/m^2", 1),
             net_solar_rad_quality_code: CodeRecord::new(&parts[2], &QUALITY_CODES),
             net_thermal_if_rad: RecordValue::new(&parts[3], "W/m^2", 1),
@@ -660,7 +660,7 @@ impl FromStr for GP1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GP1 {
-            mod_solar_irradiance_period: RecordValue::new(&parts[0], "minutes", 1),
+            mod_solar_irradiance_period: RecordValue::new(&parts[0], "min", 1),
             mod_global_horizontal: RecordValue::new(&parts[1], "W/m^2", 1),
             mod_global_horizontal_source: CodeRecord::new(
                 &parts[2],
@@ -698,10 +698,10 @@ impl FromStr for GQ1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GQ1 {
-            solar_angle_time: RecordValue::new(&parts[0], "minutes", 1),
-            mean_zenith_angle: RecordValue::new(&parts[1], "degrees", 10),
+            solar_angle_time: RecordValue::new(&parts[0], "min", 1),
+            mean_zenith_angle: RecordValue::new(&parts[1], "°", 10),
             mean_zenith_angle_quality: CodeRecord::new(&parts[2], &QUALITY_CODES),
-            mean_azimuth_angle: RecordValue::new(&parts[3], "degrees", 10),
+            mean_azimuth_angle: RecordValue::new(&parts[3], "°", 10),
             mean_azimuth_angle_quality: CodeRecord::new(&parts[4], &QUALITY_CODES),
         })
     }
@@ -721,7 +721,7 @@ impl FromStr for GR1 {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts = get_parts(s)?;
         Ok(GR1 {
-            et_rad_time: RecordValue::new(&parts[0], "minutes", 1),
+            et_rad_time: RecordValue::new(&parts[0], "min", 1),
             et_rad_horizontal_surface: RecordValue::new(&parts[1], "W/m^2", 1),
             et_rad_horizontal_surface_quality: CodeRecord::new(&parts[2], &QUALITY_CODES),
             et_rad_direct_normal: RecordValue::new(&parts[3], "W/m^2", 1),
