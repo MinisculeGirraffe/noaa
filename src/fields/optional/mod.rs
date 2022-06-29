@@ -9,3 +9,5 @@ pub mod temperature;
 pub mod pressure;
 pub mod wind;
 pub mod sea_surface_temperature;
+pub mod soil_temperature;
+pub mod marine;

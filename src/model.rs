@@ -10,6 +10,7 @@ use crate::fields::optional::temperature::*;
 use crate::fields::optional::pressure::*;
 use crate::fields::optional::wind::*;
 use crate::fields::optional::sea_surface_temperature::*;
+use crate::fields::optional::marine::*;
 use crate::util::*;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
@@ -229,6 +230,12 @@ pub struct Record {
     rh2: Option<RHX>,
     //Sea Surface Temperature
     sa1: Option<SA1>,
+    //soil temp
+
+    //marine
+    wd1: Option<WD1>,
+    wg1: Option<WG1>,
+    wj1: Option<WJ1>,
 }
 
 #[derive(Deserialize, Serialize, Debug, PartialEq)]

@@ -11,7 +11,7 @@ impl CodeRecord {
         //trim whitespace from value
 
         CodeRecord {
-            value: value.to_string(),
+            value: value.trim().to_string(),
         }
     }
 }
