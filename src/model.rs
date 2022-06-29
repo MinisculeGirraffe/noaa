@@ -235,7 +235,6 @@ pub struct Record {
     //Sea Surface Temperature
     sa1: Option<SA1>,
     //soil temp
-
     //marine
     wd1: Option<WD1>,
     wg1: Option<WG1>,
