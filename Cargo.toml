@@ -1,5 +1,5 @@
 [package]
-name = "noaa"
+name = "noaa_global_hourly"
 version = "0.1.0"
 edition = "2021"
 
